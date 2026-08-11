@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>IoT Monitoring System</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-box {
+
+            width: 500px;
+
+            margin: 55px auto;
+
+            padding: 35px 50px;
+
+            background: white;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 2px 12px rgba(0, 0, 0, 0.25);
+
+            box-sizing: border-box;
+        }
+
+        h1 {
+
+            text-align: center;
+
+            font-size: 30px;
+
+            margin-bottom: 25px;
+
+            font-weight: 700;
+
+        }
+
+        input {
+
+            width: 100%;
+
+            height: 30px;
+
+            margin-bottom: 15px;
+
+            padding: 0 12px;
+
+            font-size: 15px;
+
+            border: 1px solid #999;
+
+            box-sizing: border-box;
+
+        }
+
+        button {
+
+            width: 100%;
+
+            height: 38px;
+
+            background: #2196f3;
+
+            color: white;
+
+            border: none;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+        }
+
+        button:hover {
+
+            background: #1976d2;
+
+        }
+
+        #message {
+
+            text-align: center;
+
+            margin-top: 12px;
+
+            font-size: 16px;
+
+        }
+
+        .error {
+
+            color: red;
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="login-box">
+
+        <h1>IoT Monitoring System</h1>
+
+
+        <form id="loginForm">
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Username"
+                required
+            >
+
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                required
+            >
+
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+
+        <div id="message"></div>
+
+    </div>
+
+
+    <script>
+
+        // --------------------------------
+        // Login Form
+        // --------------------------------
+
+        document
+            .getElementById("loginForm")
+            .addEventListener("submit", async function(event) {
+
+                event.preventDefault();
+
+
+                const username =
+                    document
+                    .getElementById("username")
+                    .value;
+
+                const password =
+                    document
+                    .getElementById("password")
+                    .value;
+
+
+                const message =
+                    document
+                    .getElementById("message");
+
+
+                message.textContent = "";
+                message.className = "";
+
+
+                try {
+
+                    // Send login request to FastAPI
+
+                    const response = await fetch(
+                        "/API/Login",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                username: username,
+                                password: password
+                            })
+                        }
+                    );
+
+
+                    const data =
+                        await response.json();
+
+
+                    // -------------------------
+                    // Login successful
+                    // -------------------------
+
+                    if (response.ok) {
+
+                        // Go to dashboard
+
+                        window.location.href =
+                            "/dashboard?user_id="
+                            + data.user_id;
+
+                    }
+
+
+                    // -------------------------
+                    // Login failed
+                    // -------------------------
+
+                    else {
+
+                        message.textContent =
+                            "Invalid Username or Password";
+
+                        message.className =
+                            "error";
+
+                    }
+
+                }
+
+
+                catch (error) {
+
+                    console.error(error);
+
+                    message.textContent =
+                        "Unable to connect to server";
+
+                    message.className =
+                        "error";
+
+                }
+
+            });
+
+    </script>
+
+</body>
+
+</html>

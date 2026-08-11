@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>IoT Monitoring Dashboard</title>
+
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .header {
+            background-color: #1e88e5;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+
+        .header h1 {
+            margin: 0;
+            font-size: 40px;
+        }
+
+
+        .container {
+            width: 90%;
+            margin: 30px auto;
+        }
+
+
+        .welcome {
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+
+        /* Navigation */
+
+        .navigation {
+            margin-bottom: 25px;
+        }
+
+
+        .history-button {
+            background-color: #1e88e5;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            font-size: 17px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+
+        .history-button:hover {
+            background-color: #afc01583;
+        }
+
+
+        /* Sensor cards */
+
+        .sensor-container {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(300px, 1fr));
+
+            gap: 25px;
+        }
+
+
+        .sensor-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+
+            box-shadow:
+                0 3px 10px rgba(0,0,0,0.15);
+        }
+
+
+        .sensor-card h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+
+        .sensor-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #1e88e5;
+            margin: 20px 0;
+        }
+
+
+        .status {
+            color: green;
+            font-weight: bold;
+        }
+
+
+        .info {
+            font-size: 17px;
+            margin: 8px 0;
+        }
+
+
+        .refresh {
+            margin-top: 30px;
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+        }
+
+
+        .error {
+            color: rgb(255, 0, 136);
+            text-align: center;
+            font-size: 20px;
+        }
+
+
+        .no-data {
+            text-align: center;
+            font-size: 20px;
+            color: #666;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>
+            IoT Monitoring Dashboard
+        </h1>
+
+    </div>
+
+
+    <!-- MAIN -->
+
+    <div class="container">
+
+
+        <!-- USER -->
+
+        <div class="welcome">
+
+            Welcome User ID:
+
+            <span id="userId"></span>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <div class="navigation">
+
+            <button
+                class="history-button"
+                onclick="openHistory()">
+
+                View Sensor History
+
+            </button>
+
+        </div>
+
+
+        <!-- SENSOR CARDS -->
+
+        <div
+            id="sensorContainer"
+            class="sensor-container">
+
+        </div>
+
+
+        <!-- REFRESH -->
+
+        <div class="refresh">
+
+            Live values refresh automatically
+            every 5 seconds
+
+        </div>
+
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script src="/static/dashboard.js"></script>
+
+
+</body>
+
+</html>
