@@ -13,19 +13,30 @@
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f6f8;
             margin: 0;
             padding: 0;
+            color: #111827;
         }
 
+
+        /* =========================
+           HEADER
+        ========================= */
 
         .header {
             background-color: #1e88e5;
             color: white;
             padding: 25px;
             text-align: center;
+            position: relative;
         }
 
 
@@ -35,107 +46,612 @@
         }
 
 
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
         .container {
             width: 90%;
+            max-width: 1400px;
             margin: 30px auto;
         }
 
 
-        .welcome {
-            font-size: 22px;
-            margin-bottom: 20px;
-        }
+        /* =========================
+           USER INFO
+        ========================= */
 
-
-        /* Navigation */
-
-        .navigation {
+        #userInfo {
+            font-size: 28px;
+            font-weight: 500;
             margin-bottom: 25px;
         }
 
 
-        .history-button {
-            background-color: #1e88e5;
-            color: white;
-            border: none;
-            padding: 12px 22px;
-            font-size: 17px;
-            border-radius: 6px;
+        .user-id {
+            font-size: 18px;
+            color: #666;
+            margin-left: 15px;
+            font-weight: normal;
+        }
+
+
+        /* =========================
+           TOP BUTTONS
+        ========================= */
+
+        .top-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+
+        .left-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+
+        button {
+            font-family: Arial, sans-serif;
             cursor: pointer;
         }
 
 
-        .history-button:hover {
-            background-color: #afc01583;
+        .add-device-btn,
+        .history-button,
+        .refresh-button {
+
+            padding: 13px 22px;
+            border-radius: 7px;
+            font-size: 17px;
+            border: none;
+            transition: 0.2s;
+
         }
 
 
-        /* Sensor cards */
+        .add-device-btn {
+
+            background-color: #1e88e5;
+            color: white;
+
+        }
+
+
+        .add-device-btn:hover {
+
+            background-color: #1565c0;
+
+        }
+
+
+        .history-button {
+
+            background-color: white;
+            color: #222;
+            border: 1px solid #bfc7d1;
+
+        }
+
+
+        .history-button:hover {
+
+            background-color: #f0f2f5;
+
+        }
+
+
+        .refresh-button {
+
+            background-color: white;
+            color: #222;
+            border: 1px solid #bfc7d1;
+
+        }
+
+
+        .refresh-button:hover {
+
+            background-color: #f0f2f5;
+
+        }
+
+
+        /* =========================
+           SENSOR CARDS
+        ========================= */
 
         .sensor-container {
+
             display: grid;
+
             grid-template-columns:
-                repeat(auto-fit, minmax(300px, 1fr));
+                repeat(auto-fit, minmax(320px, 1fr));
 
             gap: 25px;
+
         }
 
 
         .sensor-card {
+
             background-color: white;
+
             padding: 25px;
+
             border-radius: 12px;
 
             box-shadow:
-                0 3px 10px rgba(0,0,0,0.15);
+                0 3px 12px rgba(0, 0, 0, 0.12);
+
+            min-height: 300px;
+
         }
 
 
-        .sensor-card h2 {
-            margin-top: 0;
+        /* Device header */
+
+        .device-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .device-header h2 {
+
+            margin: 0;
+
+            font-size: 23px;
+
+            color: #111827;
+
+        }
+
+
+        .status-dot {
+
+            display: inline-block;
+
+            width: 16px;
+
+            height: 16px;
+
+            background-color: #4caf80;
+
+            border-radius: 50%;
+
+            margin-right: 8px;
+
+        }
+
+
+        .device-menu {
+
+            font-size: 28px;
+
             color: #333;
+
         }
 
+
+        /* =========================
+           SENSOR VALUE
+        ========================= */
 
         .sensor-value {
-            font-size: 36px;
+
+            font-size: 40px;
+
             font-weight: bold;
+
             color: #1e88e5;
-            margin: 20px 0;
-        }
 
+            margin: 22px 0;
 
-        .status {
-            color: green;
-            font-weight: bold;
         }
 
 
         .info {
+
             font-size: 17px;
-            margin: 8px 0;
+
+            margin: 10px 0;
+
         }
 
+
+        .status {
+
+            color: #168534;
+
+            font-weight: bold;
+
+        }
+
+
+        /* =========================
+           VIEW DETAILS
+        ========================= */
+
+        .view-details-btn {
+
+            width: 100%;
+
+            margin-top: 20px;
+
+            padding: 13px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background-color: #e3f0ff;
+
+            color: #0969d5;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .view-details-btn:hover {
+
+            background-color: #d3e7ff;
+
+        }
+
+
+        /* =========================
+           REFRESH MESSAGE
+        ========================= */
 
         .refresh {
-            margin-top: 30px;
+
+            margin-top: 35px;
+
             text-align: center;
+
             color: #666;
+
             font-size: 18px;
+
         }
 
 
+        /* =========================
+           ERROR / NO DATA
+        ========================= */
+
         .error {
-            color: rgb(255, 0, 136);
+
+            color: #e91e63;
+
             text-align: center;
+
             font-size: 20px;
+
+            padding: 30px;
+
         }
 
 
         .no-data {
+
+            grid-column: 1 / -1;
+
             text-align: center;
+
             font-size: 20px;
+
             color: #666;
+
+            padding: 50px;
+
+            background-color: white;
+
+            border-radius: 12px;
+
+        }
+
+
+        /* ==================================================
+           ADD DEVICE MODAL
+        ================================================== */
+
+        .modal {
+
+            display: none;
+
+            position: fixed;
+
+            z-index: 1000;
+
+            left: 0;
+
+            top: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background-color:
+                rgba(0, 0, 0, 0.45);
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+
+        .modal-content {
+
+            background-color: white;
+
+            width: 90%;
+
+            max-width: 600px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 10px 35px rgba(0, 0, 0, 0.25);
+
+            overflow: hidden;
+
+        }
+
+
+        /* Modal Header */
+
+        .modal-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 22px 25px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+        }
+
+
+        .modal-header h2 {
+
+            margin: 0;
+
+            font-size: 27px;
+
+        }
+
+
+        .close-btn {
+
+            background: none;
+
+            border: none;
+
+            font-size: 32px;
+
+            color: #333;
+
+            cursor: pointer;
+
+            line-height: 1;
+
+        }
+
+
+        .close-btn:hover {
+
+            color: #e53935;
+
+        }
+
+
+        /* Modal form */
+
+        .form-group {
+
+            padding: 0 25px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            font-size: 16px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 7px;
+
+            outline: none;
+
+        }
+
+
+        .form-group input:focus {
+
+            border-color: #1e88e5;
+
+            box-shadow:
+                0 0 0 2px rgba(30, 136, 229, 0.15);
+
+        }
+
+
+        /* Modal information */
+
+        .modal-info {
+
+            margin: 22px 25px;
+
+            padding: 13px;
+
+            background-color: #e5f2ff;
+
+            color: #0755a5;
+
+            border-radius: 7px;
+
+            font-size: 15px;
+
+        }
+
+
+        /* Success/Error message */
+
+        #addDeviceMessage {
+
+            margin: 0 25px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* Modal buttons */
+
+        .modal-actions {
+
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 12px;
+
+            padding: 22px 25px;
+
+            border-top: 1px solid #e5e7eb;
+
+            margin-top: 20px;
+
+        }
+
+
+        .cancel-btn {
+
+            padding: 12px 22px;
+
+            background-color: white;
+
+            border: 1px solid #bfc7d1;
+
+            border-radius: 7px;
+
+            font-size: 16px;
+
+        }
+
+
+        .cancel-btn:hover {
+
+            background-color: #f3f4f6;
+
+        }
+
+
+        .save-btn {
+
+            padding: 12px 22px;
+
+            background-color: #1e88e5;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 7px;
+
+            font-size: 16px;
+
+        }
+
+
+        .save-btn:hover {
+
+            background-color: #1565c0;
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            #userInfo {
+                font-size: 22px;
+            }
+
+            .user-id {
+                display: block;
+                margin-left: 0;
+                margin-top: 5px;
+            }
+
+            .top-actions {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .left-actions {
+                flex-direction: column;
+            }
+
+            .refresh-button {
+                width: 100%;
+            }
+
         }
 
     </style>
@@ -146,7 +662,9 @@
 <body>
 
 
-    <!-- HEADER -->
+    <!-- ==================================================
+         HEADER
+    ================================================== -->
 
     <div class="header">
 
@@ -157,38 +675,85 @@
     </div>
 
 
-    <!-- MAIN -->
+    <!-- ==================================================
+         MAIN CONTAINER
+    ================================================== -->
 
     <div class="container">
 
 
-        <!-- USER -->
+        <!-- USER INFORMATION -->
 
-        <div class="welcome">
+        <div id="userInfo">
 
-            Welcome User ID:
+            Welcome,
+            <span id="username">User</span>
+            👋
 
-            <span id="userId"></span>
+            <span class="user-id">
+
+                User ID:
+                <span id="userId"></span>
+
+            </span>
 
         </div>
 
 
-        <!-- NAVIGATION -->
+        <!-- ==================================================
+             TOP ACTION BUTTONS
+        ================================================== -->
 
-        <div class="navigation">
+        <div class="top-actions">
+
+
+            <!-- LEFT BUTTONS -->
+
+            <div class="left-actions">
+
+
+                <!-- ADD DEVICE -->
+
+                <button
+                    id="addDeviceBtn"
+                    class="add-device-btn">
+
+                    ＋ Add Device
+
+                </button>
+
+
+                <!-- HISTORY -->
+
+                <button
+                    class="history-button"
+                    onclick="openHistory()">
+
+                    📊 View Sensor History
+
+                </button>
+
+
+            </div>
+
+
+            <!-- REFRESH -->
 
             <button
-                class="history-button"
-                onclick="openHistory()">
+                class="refresh-button"
+                onclick="loadDashboard()">
 
-                View Sensor History
+                ⟳ Refresh
 
             </button>
 
+
         </div>
 
 
-        <!-- SENSOR CARDS -->
+        <!-- ==================================================
+             SENSOR CARDS
+        ================================================== -->
 
         <div
             id="sensorContainer"
@@ -197,12 +762,13 @@
         </div>
 
 
-        <!-- REFRESH -->
+        <!-- ==================================================
+             REFRESH INFORMATION
+        ================================================== -->
 
         <div class="refresh">
 
-            Live values refresh automatically
-            every 5 seconds
+            Live values refresh automatically every 5 seconds
 
         </div>
 
@@ -210,7 +776,138 @@
     </div>
 
 
-    <!-- JAVASCRIPT -->
+    <!-- ==================================================
+         ADD DEVICE MODAL
+    ================================================== -->
+
+    <div
+        id="addDeviceModal"
+        class="modal">
+
+
+        <div class="modal-content">
+
+
+            <!-- MODAL HEADER -->
+
+            <div class="modal-header">
+
+                <h2>
+                    Add New Device
+                </h2>
+
+
+                <button
+                    id="closeModal"
+                    class="close-btn">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <!-- DEVICE NAME -->
+
+            <div class="form-group">
+
+                <label>
+                    Device Name *
+                </label>
+
+                <input
+                    type="text"
+                    id="deviceName"
+                    placeholder="Enter device name">
+
+            </div>
+
+
+            <!-- DEVICE TYPE -->
+
+            <div class="form-group">
+
+                <label>
+                    Device Type *
+                </label>
+
+                <input
+                    type="text"
+                    id="deviceType"
+                    placeholder="Example: Temperature">
+
+            </div>
+
+
+            <!-- LOCATION -->
+
+            <div class="form-group">
+
+                <label>
+                    Location
+                </label>
+
+                <input
+                    type="text"
+                    id="deviceLocation"
+                    placeholder="Example: Industry">
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div
+                id="addDeviceMessage">
+
+            </div>
+
+
+            <!-- INFORMATION -->
+
+            <div class="modal-info">
+
+                ℹ New device will be added to your account.
+
+            </div>
+
+
+            <!-- MODAL BUTTONS -->
+
+            <div class="modal-actions">
+
+
+                <button
+                    id="cancelDevice"
+                    class="cancel-btn">
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    id="saveDevice"
+                    class="save-btn"
+                    onclick="addDevice()">
+
+                    Add Device
+
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         JAVASCRIPT
+    ================================================== -->
 
     <script src="/static/dashboard.js"></script>
 
