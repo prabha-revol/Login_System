@@ -1,38 +1,109 @@
 async function login() {
 
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username =
+        document.getElementById("username").value.trim();
 
-    const response = await fetch("/API/Login", {
+    const password =
+        document.getElementById("password").value.trim();
 
-        method: "POST",
+    const message =
+        document.getElementById("message");
 
-        headers: {
-            "Content-Type": "application/json"
-        },
 
-        body: JSON.stringify({
+    // Validation
+    if (!username || !password) {
 
-            username: username,
-            password: password
+        message.innerText =
+            "Please enter Username and Password.";
 
-        })
+        return;
+    }
 
-    });
 
-    const data = await response.json();
+    try {
 
-    if (data.status === "success") {
+        // Login API
+        const response = await fetch(
+            "/API/Login",
+            {
+                method: "POST",
 
-        localStorage.setItem("user_id", data.user_id);
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-        window.location.href = "/dashboard";
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            }
+        );
 
-    } else {
 
-        document.getElementById("message").innerHTML =
-        "Invalid Username or Password";
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Login Response:",
+            data
+        );
+
+
+        // Login successful
+        if (
+            response.ok &&
+            data.message === "Login successful"
+        ) {
+
+            // Save User ID
+            localStorage.setItem(
+                "user_id",
+                data.user_id
+            );
+
+            // Save Username
+            localStorage.setItem(
+                "username",
+                data.username
+            );
+
+
+            console.log(
+                "User ID:",
+                localStorage.getItem("user_id")
+            );
+
+            console.log(
+                "Username:",
+                localStorage.getItem("username")
+            );
+
+
+            // Open dashboard
+            window.location.href =
+                `/dashboard?user_id=${data.user_id}`;
+
+        }
+
+        else {
+
+            message.innerText =
+                data.detail ||
+                "Invalid Username or Password.";
+
+        }
 
     }
 
+    catch (error) {
+
+        console.error(
+            "Login Error:",
+            error
+        );
+
+        message.innerText =
+            "Unable to connect to server.";
+    }
 }
