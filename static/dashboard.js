@@ -2,19 +2,25 @@
 // GET USER INFORMATION
 // =====================================================
 
-const urlParams = new URLSearchParams(window.location.search);
+const urlParams =
+    new URLSearchParams(window.location.search);
 
-let userId = urlParams.get("user_id");
+let userId =
+    urlParams.get("user_id");
 
 // If URL does not contain user_id,
 // get it from localStorage
 if (!userId) {
-    userId = localStorage.getItem("user_id");
+    userId =
+        localStorage.getItem("user_id");
 }
 
 // Save user ID
 if (userId) {
-    localStorage.setItem("user_id", userId);
+    localStorage.setItem(
+        "user_id",
+        userId
+    );
 }
 
 
@@ -37,6 +43,7 @@ const sensorContainer =
 // =====================================================
 
 if (userIdElement) {
+
     userIdElement.innerText =
         userId || "Not Available";
 }
@@ -60,6 +67,7 @@ console.log(
 );
 
 if (usernameElement) {
+
     usernameElement.innerText =
         username || "User";
 }
@@ -117,9 +125,10 @@ async function loadDashboard() {
         // DASHBOARD API
         // =================================================
 
-        const response = await fetch(
-            `/API/Dashboard/${userId}`
-        );
+        const response =
+            await fetch(
+                `/API/Dashboard/${userId}`
+            );
 
 
         console.log(
@@ -143,6 +152,7 @@ async function loadDashboard() {
                     await response.json();
 
                 if (errorData.detail) {
+
                     errorMessage =
                         errorData.detail;
                 }
@@ -166,7 +176,6 @@ async function loadDashboard() {
 
         const data =
             await response.json();
-
 
         console.log(
             "Dashboard Data:",
@@ -221,20 +230,13 @@ async function loadDashboard() {
 
         devices.forEach(device => {
 
-            const card =
-                document.createElement("div");
-
-            card.className =
-                "sensor-card";
-
-
             // =================================================
             // DEVICE ID
             // =================================================
 
             const deviceId =
-                device.id ||
-                device.device_id;
+                device.device_id ||
+                device.id;
 
 
             // =================================================
@@ -289,9 +291,11 @@ async function loadDashboard() {
             // SENSOR VALUE
             // =================================================
 
-            let value = "No Data";
+            let value =
+                "No Data";
 
-            let unit = "";
+            let unit =
+                "";
 
 
             // =================================================
@@ -421,8 +425,15 @@ async function loadDashboard() {
 
 
             // =================================================
-            // DEVICE CARD HTML
+            // CREATE DEVICE CARD
             // =================================================
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "sensor-card";
+
 
             card.innerHTML = `
 
@@ -445,7 +456,15 @@ async function loadDashboard() {
 
                 <div class="info">
 
-                    Type:
+                    <b>Device ID:</b>
+                    ${deviceId}
+
+                </div>
+
+
+                <div class="info">
+
+                    <b>Type:</b>
                     ${deviceType}
 
                 </div>
@@ -460,7 +479,7 @@ async function loadDashboard() {
 
                 <div class="info">
 
-                    Location:
+                    <b>Location:</b>
                     ${location}
 
                 </div>
@@ -468,7 +487,7 @@ async function loadDashboard() {
 
                 <div class="info">
 
-                    Status:
+                    <b>Status:</b>
 
                     <span class="status">
 
@@ -481,7 +500,7 @@ async function loadDashboard() {
 
                 <div class="info">
 
-                    Last Updated:
+                    <b>Last Updated:</b>
 
                     ${lastUpdated}
 
@@ -490,18 +509,45 @@ async function loadDashboard() {
 
                 <button
                     class="view-details-btn"
-                    onclick="viewDeviceDetails(${device.device_id})"
+                    onclick="viewDeviceDetails(${deviceId})"
                 >
 
                     👁 View Details
 
                 </button>
 
+
+                <button
+                    class="delete-device-btn"
+                    onclick="deleteDevice(${deviceId})"
+                    style="
+                        width: 100%;
+                        margin-top: 10px;
+                        padding: 13px;
+                        border: none;
+                        border-radius: 7px;
+                        background-color: #e53935;
+                        color: white;
+                        font-size: 17px;
+                        font-weight: bold;
+                        cursor: pointer;
+                    "
+                >
+
+                    🗑 Delete Device
+
+                </button>
+
             `;
 
 
-            // Add card to dashboard
-            sensorContainer.appendChild(card);
+            // =================================================
+            // ADD CARD TO DASHBOARD
+            // =================================================
+
+            sensorContainer.appendChild(
+                card
+            );
 
         });
 
@@ -509,7 +555,7 @@ async function loadDashboard() {
 
 
     // =================================================
-    // ERROR
+    // DASHBOARD ERROR
     // =================================================
 
     catch (error) {
@@ -542,16 +588,24 @@ async function loadDashboard() {
 // =====================================================
 
 const addDeviceBtn =
-    document.getElementById("addDeviceBtn");
+    document.getElementById(
+        "addDeviceBtn"
+    );
 
 const addDeviceModal =
-    document.getElementById("addDeviceModal");
+    document.getElementById(
+        "addDeviceModal"
+    );
 
 const closeModal =
-    document.getElementById("closeModal");
+    document.getElementById(
+        "closeModal"
+    );
 
 const cancelDevice =
-    document.getElementById("cancelDevice");
+    document.getElementById(
+        "cancelDevice"
+    );
 
 
 // =====================================================
@@ -888,6 +942,128 @@ async function addDevice() {
 
 
 // =====================================================
+// DELETE DEVICE
+// =====================================================
+
+async function deleteDevice(deviceId) {
+
+    // -------------------------------------------------
+    // CHECK DEVICE ID
+    // -------------------------------------------------
+
+    if (!deviceId) {
+
+        alert(
+            "Device ID not available."
+        );
+
+        return;
+    }
+
+
+    // -------------------------------------------------
+    // CONFIRM DELETE
+    // -------------------------------------------------
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this device?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+    }
+
+
+    try {
+
+        console.log(
+            "Deleting Device:",
+            deviceId
+        );
+
+
+        // =================================================
+        // DELETE DEVICE API
+        // =================================================
+
+        const response =
+            await fetch(
+                `/API/DeleteDevice/${deviceId}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        // =================================================
+        // READ RESPONSE
+        // =================================================
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Delete Device Response:",
+            data
+        );
+
+
+        // =================================================
+        // CHECK RESPONSE
+        // =================================================
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.detail ||
+                "Failed to delete device."
+            );
+        }
+
+
+        // =================================================
+        // SUCCESS
+        // =================================================
+
+        alert(
+            "Device deleted successfully."
+        );
+
+
+        // =================================================
+        // RELOAD DASHBOARD
+        // =================================================
+
+        loadDashboard();
+
+    }
+
+
+    // =================================================
+    // DELETE ERROR
+    // =================================================
+
+    catch (error) {
+
+        console.error(
+            "Delete Device Error:",
+            error
+        );
+
+
+        alert(
+            "Unable to delete device.\n\n" +
+            error.message
+        );
+    }
+}
+
+
+// =====================================================
 // VIEW SENSOR HISTORY
 // =====================================================
 
@@ -936,9 +1112,11 @@ function viewDeviceDetails(deviceId) {
     }
 
 
-    // Device details page can be connected later.
+    // Device details page can be connected later
+
     alert(
-        "Device ID: " + deviceId
+        "Device ID: " +
+        deviceId
     );
 }
 
