@@ -9,18 +9,27 @@ from routers import devices
 from routers import sensors
 
 
-# Create database tables
+# =====================================================
+# CREATE DATABASE TABLES
+# =====================================================
+
 Base.metadata.create_all(bind=engine)
 
 
-# Create FastAPI app
+# =====================================================
+# CREATE FASTAPI APP
+# =====================================================
+
 app = FastAPI(
     title="IoT Login System API",
     version="0.1.0"
 )
 
 
-# Static files
+# =====================================================
+# STATIC FILES
+# =====================================================
+
 app.mount(
     "/static",
     StaticFiles(directory="static"),
@@ -28,32 +37,55 @@ app.mount(
 )
 
 
-# Templates
+# =====================================================
+# TEMPLATES
+# =====================================================
+
 templates = Jinja2Templates(
     directory="templates"
 )
 
 
-# Register routers
+# =====================================================
+# REGISTER API ROUTERS
+# =====================================================
+
 app.include_router(users.router)
 app.include_router(devices.router)
 app.include_router(sensors.router)
 
 
-# -------------------------
+# =====================================================
 # HOME PAGE
-# -------------------------
+# =====================================================
 
 @app.get("/")
-def root():
-    return {
-        "message": "IoT Login System API is running"
-    }
+def home(request: Request):
+
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={}
+    )
 
 
-# -------------------------
+# =====================================================
+# REGISTER PAGE
+# =====================================================
+
+@app.get("/Register")
+def register_page(request: Request):
+
+    return templates.TemplateResponse(
+        request=request,
+        name="register.html",
+        context={}
+    )
+
+
+# =====================================================
 # LOGIN PAGE
-# -------------------------
+# =====================================================
 
 @app.get("/Login")
 def login_page(request: Request):
@@ -65,14 +97,12 @@ def login_page(request: Request):
     )
 
 
-# -------------------------
+# =====================================================
 # DASHBOARD PAGE
-# -------------------------
+# =====================================================
 
 @app.get("/dashboard")
-def dashboard_page(
-    request: Request
-):
+def dashboard_page(request: Request):
 
     return templates.TemplateResponse(
         request=request,
@@ -81,14 +111,12 @@ def dashboard_page(
     )
 
 
-# -------------------------
+# =====================================================
 # HISTORY PAGE
-# -------------------------
+# =====================================================
 
 @app.get("/history")
-def history_page(
-    request: Request
-):
+def history_page(request: Request):
 
     return templates.TemplateResponse(
         request=request,
