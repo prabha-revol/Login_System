@@ -1,11 +1,13 @@
-history.js
-
-// Get logged-in User ID
+// =====================================================
+// GET LOGGED-IN USER ID
+// =====================================================
 
 const userId = localStorage.getItem("user_id");
 
 
-// Get HTML elements
+// =====================================================
+// HTML ELEMENTS
+// =====================================================
 
 const historyTable =
     document.getElementById("historyTable");
@@ -14,43 +16,65 @@ const backDashboard =
     document.getElementById("backDashboard");
 
 
-// Check User ID
+// =====================================================
+// CHECK USER ID
+// =====================================================
 
 if (!userId) {
 
-    historyTable.innerHTML = `
-        <tr>
-            <td colspan="5">
-                User ID not found
-            </td>
-        </tr>
-    `;
+    if (historyTable) {
+
+        historyTable.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    User ID not found.
+                    Please login again.
+                </td>
+            </tr>
+        `;
+
+    }
 
 }
 
 
-// Back to Dashboard
+// =====================================================
+// BACK TO DASHBOARD
+// =====================================================
 
-backDashboard.addEventListener("click", function () {
+if (backDashboard) {
 
-    if (userId) {
+    backDashboard.addEventListener(
+        "click",
+        function () {
 
-        window.location.href =
-            `/dashboard?user_id=${userId}`;
+            if (userId) {
 
-    } else {
+                window.location.href =
+                    `/dashboard?user_id=${userId}`;
 
-        window.location.href =
-            "/dashboard";
+            } else {
 
-    }
+                window.location.href =
+                    "/dashboard";
 
-});
+            }
+
+        }
+    );
+
+}
 
 
-// Load History
+// =====================================================
+// LOAD SENSOR HISTORY
+// =====================================================
 
 async function loadHistory() {
+
+    if (!userId) {
+        return;
+    }
 
     try {
 
@@ -60,181 +84,262 @@ async function loadHistory() {
         );
 
 
-        // Call History API
+        // =================================================
+        // CALL HISTORY API
+        // =================================================
 
         const response =
-            await fetch(`/API/History/${userId}`);
+            await fetch(
+                `/API/History/${userId}`
+            );
 
 
         console.log(
-            "History Response:",
+            "History API Status:",
             response.status
         );
 
 
+        // =================================================
+        // CHECK API RESPONSE
+        // =================================================
+
         if (!response.ok) {
 
+            const errorData =
+                await response.json()
+                .catch(() => ({}));
+
             throw new Error(
+                errorData.detail ||
                 "History API failed"
             );
 
         }
 
 
-        // Convert response to JSON
+        // =================================================
+        // READ JSON
+        // =================================================
 
-        const data =
+        const result =
             await response.json();
 
 
         console.log(
-            "History Data:",
-            data
+            "History API Response:",
+            result
         );
 
 
-        // Clear old table data
+        // =================================================
+        // CLEAR OLD TABLE
+        // =================================================
 
         historyTable.innerHTML = "";
 
 
-        // API may return:
-        //
-        // [
-        //    {...},
-        //    {...}
-        // ]
-        //
-        // OR:
-        //
-        // {
-        //    "history": [...]
-        // }
+        // =================================================
+        // GET HISTORY
+        // =================================================
 
-        let history = data;
+        const history =
+            result.history || [];
 
 
-        if (data.history) {
-
-            history =
-                data.history;
-
-        }
+        console.log(
+            "History records:",
+            history
+        );
 
 
-        // Check whether data exists
+        // =================================================
+        // NO HISTORY
+        // =================================================
 
-        if (
-            !Array.isArray(history) ||
-            history.length === 0
-        ) {
+        if (history.length === 0) {
 
             historyTable.innerHTML = `
                 <tr>
                     <td colspan="5">
-                        No history data found
+                        No history data found.
                     </td>
                 </tr>
             `;
 
             return;
-
         }
 
 
-        // Create table rows
+        // =================================================
+        // LOOP THROUGH DEVICES
+        // =================================================
 
-        history.forEach(item => {
+        history.forEach(device => {
 
-
-            // Default values
-
-            let value = "N/A";
-
-            let unit = "N/A";
-
-
-            // Temperature
+            // ---------------------------------------------
+            // CHECK SENSOR DATA
+            // ---------------------------------------------
 
             if (
-                item.temperature !== null &&
-                item.temperature !== undefined
+                !device.data ||
+                device.data.length === 0
             ) {
 
-                value =
-                    item.temperature;
-
-                unit =
-                    "°C";
-
+                return;
             }
 
 
-            // Pressure
+            // ---------------------------------------------
+            // LOOP THROUGH SENSOR RECORDS
+            // ---------------------------------------------
 
-            else if (
-                item.pressure !== null &&
-                item.pressure !== undefined
-            ) {
-
-                value =
-                    item.pressure;
-
-                unit =
-                    "bar";
-
-            }
+            device.data.forEach(item => {
 
 
-            // Create row
+                // =========================================
+                // DEFAULT VALUE / UNIT
+                // =========================================
 
-            const row =
-                document.createElement("tr");
+                let value = "N/A";
 
-
-            row.innerHTML = `
-
-                <td>
-                    ${item.device_name || "N/A"}
-                </td>
+                let unit = "N/A";
 
 
-                <td>
-                    ${item.device_type || "N/A"}
-                </td>
+                // =========================================
+                // TEMPERATURE
+                // =========================================
+
+                if (
+                    item.temperature !== null &&
+                    item.temperature !== undefined
+                ) {
+
+                    value =
+                        item.temperature;
+
+                    unit =
+                        "°C";
+                }
 
 
-                <td>
-                    ${value}
-                </td>
+                // =========================================
+                // PRESSURE
+                // =========================================
+
+                else if (
+                    item.pressure !== null &&
+                    item.pressure !== undefined
+                ) {
+
+                    value =
+                        item.pressure;
+
+                    unit =
+                        "bar";
+                }
 
 
-                <td>
-                    ${unit}
-                </td>
+                // =========================================
+                // DATE & TIME
+                // =========================================
+
+                let dateTime = "N/A";
 
 
-                <td>
-                    ${
-                        item.created_at
-                        ? new Date(
+                if (
+                    item.created_at !== null &&
+                    item.created_at !== undefined
+                ) {
+
+                    const date =
+                        new Date(
                             item.created_at
-                          ).toLocaleString()
-                        : "N/A"
+                        );
+
+
+                    if (
+                        !isNaN(
+                            date.getTime()
+                        )
+                    ) {
+
+                        dateTime =
+                            date.toLocaleString();
+
                     }
-                </td>
 
-            `;
+                }
 
 
-            // Add row to table
+                // =========================================
+                // CREATE TABLE ROW
+                // =========================================
 
-            historyTable.appendChild(row);
+                const row =
+                    document.createElement("tr");
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${device.device_name || "N/A"}
+                    </td>
+
+                    <td>
+                        ${device.device_type || "N/A"}
+                    </td>
+
+                    <td>
+                        ${value}
+                    </td>
+
+                    <td>
+                        ${unit}
+                    </td>
+
+                    <td>
+                        ${dateTime}
+                    </td>
+
+                `;
+
+
+                // =========================================
+                // ADD ROW TO TABLE
+                // =========================================
+
+                historyTable.appendChild(row);
+
+            });
 
         });
 
+
+        // =================================================
+        // CHECK IF NO ROWS WERE CREATED
+        // =================================================
+
+        if (
+            historyTable.children.length === 0
+        ) {
+
+            historyTable.innerHTML = `
+                <tr>
+                    <td colspan="5">
+                        No sensor records found.
+                    </td>
+                </tr>
+            `;
+
+        }
+
     }
 
+
+    // =====================================================
+    // ERROR
+    // =====================================================
 
     catch (error) {
 
@@ -245,11 +350,21 @@ async function loadHistory() {
 
 
         historyTable.innerHTML = `
+
             <tr>
+
                 <td colspan="5">
-                    Unable to load history data
+
+                    Unable to load history data.
+
+                    <br><br>
+
+                    ${error.message}
+
                 </td>
+
             </tr>
+
         `;
 
     }
@@ -257,7 +372,9 @@ async function loadHistory() {
 }
 
 
-// Load history when page opens
+// =====================================================
+// INITIAL LOAD
+// =====================================================
 
 if (userId) {
 
