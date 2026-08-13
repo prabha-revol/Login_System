@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Register User</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+
+            width: 400px;
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e88e5;
+            margin-bottom: 30px;
+        }
+
+        label {
+
+            display: block;
+
+            margin-top: 15px;
+            margin-bottom: 7px;
+
+            font-weight: bold;
+        }
+
+        input {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 6px;
+
+            font-size: 16px;
+
+            box-sizing: border-box;
+        }
+
+        button {
+
+            width: 100%;
+
+            padding: 13px;
+
+            margin-top: 25px;
+
+            background: #1e88e5;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 7px;
+
+            font-size: 17px;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+
+            background: #1565c0;
+        }
+
+        .login-link {
+
+            text-align: center;
+
+            margin-top: 20px;
+        }
+
+        .login-link a {
+
+            color: #1e88e5;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        #message {
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+    <h1>
+        Register User
+    </h1>
+
+
+    <form
+        id="registerForm"
+        onsubmit="event.preventDefault(); registerUser();"
+    >
+
+        <label>
+            Username
+        </label>
+
+        <input
+            type="text"
+            id="username"
+            required
+        >
+
+
+        <label>
+            Email
+        </label>
+
+        <input
+            type="email"
+            id="email"
+            required
+        >
+
+
+        <label>
+            Password
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            required
+        >
+
+
+        <button type="submit">
+
+            Register
+
+        </button>
+
+    </form>
+
+
+    <div id="message"></div>
+
+
+    <div class="login-link">
+
+        Already registered?
+
+        <a href="/Login">
+            Login
+        </a>
+
+    </div>
+
+
+</div>
+
+
+<!-- ==============================
+     REGISTER JAVASCRIPT
+============================== -->
+
+<script src="/static/register.js"></script>
+
+
+</body>
+
+</html>
