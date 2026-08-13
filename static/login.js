@@ -1,3 +1,4 @@
+
 async function login() {
 
     const username =
@@ -9,7 +10,6 @@ async function login() {
     const message =
         document.getElementById("message");
 
-
     // Validation
     if (!username || !password) {
 
@@ -19,10 +19,8 @@ async function login() {
         return;
     }
 
-
     try {
 
-        // Login API
         const response = await fetch(
             "/API/Login",
             {
@@ -39,51 +37,58 @@ async function login() {
             }
         );
 
-
         const data =
             await response.json();
-
 
         console.log(
             "Login Response:",
             data
         );
 
-
         // Login successful
-        if (
-            response.ok &&
-            data.message === "Login successful"
-        ) {
+        if (response.ok) {
 
-            // Save User ID
+            // =========================
+            // SAVE USER INFORMATION
+            // =========================
+
             localStorage.setItem(
                 "user_id",
                 data.user_id
             );
 
-            // Save Username
             localStorage.setItem(
                 "username",
                 data.username
             );
 
+            localStorage.setItem(
+                "email",
+                data.email
+            );
 
-            console.log(
-                "User ID:",
-                localStorage.getItem("user_id")
+            localStorage.setItem(
+                "role",
+                data.role
             );
 
             console.log(
-                "Username:",
+                "Saved Username:",
                 localStorage.getItem("username")
             );
 
+            console.log(
+                "Saved User ID:",
+                localStorage.getItem("user_id")
+            );
 
-            // Open dashboard
+            // =========================
+            // GO TO DASHBOARD
+            // =========================
+
             window.location.href =
-                `/dashboard?user_id=${data.user_id}`;
-
+                "/dashboard?user_id=" +
+                data.user_id;
         }
 
         else {
@@ -91,7 +96,6 @@ async function login() {
             message.innerText =
                 data.detail ||
                 "Invalid Username or Password.";
-
         }
 
     }
@@ -107,3 +111,20 @@ async function login() {
             "Unable to connect to server.";
     }
 }
+
+
+// =====================================================
+// LOGIN FORM SUBMIT
+// =====================================================
+
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+            login();
+        }
+    );
