@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IoT Monitoring System</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 45px;
+            width: 400px;
+
+            text-align: center;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            color: #1e88e5;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+
+            margin: 10px 0;
+
+            border: none;
+            border-radius: 7px;
+
+            font-size: 17px;
+
+            cursor: pointer;
+        }
+
+        .register {
+            background: #1e88e5;
+            color: white;
+        }
+
+        .login {
+            background: white;
+            color: #1e88e5;
+
+            border: 1px solid #1e88e5;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>
+            IoT Monitoring System
+        </h1>
+
+        <p>
+            Please choose an option
+        </p>
+
+
+        <!-- REGISTER -->
+
+        <button
+            class="register"
+            onclick="goToRegister()">
+
+            👤 Register User
+
+        </button>
+
+
+        <!-- LOGIN -->
+
+        <button
+            class="login"
+            onclick="goToLogin()">
+
+            🔐 Login
+
+        </button>
+
+    </div>
+
+
+    <script>
+
+        function goToRegister() {
+
+            window.location.href =
+                "/Register";
+
+        }
+
+
+        function goToLogin() {
+
+            window.location.href =
+                "/Login";
+
+        }
+
+    </script>
+
+</body>
+
+</html>
