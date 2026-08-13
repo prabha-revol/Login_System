@@ -46,14 +46,13 @@
             margin-bottom: 25px;
 
             font-weight: 700;
-
         }
 
         input {
 
             width: 100%;
 
-            height: 30px;
+            height: 40px;
 
             margin-bottom: 15px;
 
@@ -65,13 +64,14 @@
 
             box-sizing: border-box;
 
+            border-radius: 5px;
         }
 
         button {
 
             width: 100%;
 
-            height: 38px;
+            height: 40px;
 
             background: #2196f3;
 
@@ -83,12 +83,12 @@
 
             cursor: pointer;
 
+            border-radius: 5px;
         }
 
         button:hover {
 
             background: #1976d2;
-
         }
 
         #message {
@@ -99,12 +99,17 @@
 
             font-size: 16px;
 
+            font-weight: bold;
         }
 
         .error {
 
             color: red;
+        }
 
+        .success {
+
+            color: green;
         }
 
     </style>
@@ -116,7 +121,9 @@
 
     <div class="login-box">
 
-        <h1>IoT Monitoring System</h1>
+        <h1>
+            IoT Monitoring System
+        </h1>
 
 
         <form id="loginForm">
@@ -151,86 +158,253 @@
 
     <script>
 
-        // --------------------------------
-        // Login Form
-        // --------------------------------
+        // =====================================================
+        // LOGIN FORM
+        // =====================================================
 
         document
             .getElementById("loginForm")
-            .addEventListener("submit", async function(event) {
+            .addEventListener(
+                "submit",
+                async function(event) {
 
-                event.preventDefault();
-
-
-                const username =
-                    document
-                    .getElementById("username")
-                    .value;
-
-                const password =
-                    document
-                    .getElementById("password")
-                    .value;
+                    event.preventDefault();
 
 
-                const message =
-                    document
-                    .getElementById("message");
+                    // =================================================
+                    // GET USERNAME
+                    // =================================================
+
+                    const username =
+                        document
+                        .getElementById("username")
+                        .value
+                        .trim();
 
 
-                message.textContent = "";
-                message.className = "";
+                    // =================================================
+                    // GET PASSWORD
+                    // =================================================
+
+                    const password =
+                        document
+                        .getElementById("password")
+                        .value;
 
 
-                try {
+                    // =================================================
+                    // MESSAGE ELEMENT
+                    // =================================================
 
-                    // Send login request to FastAPI
+                    const message =
+                        document
+                        .getElementById("message");
 
-                    const response = await fetch(
-                        "/API/Login",
-                        {
-                            method: "POST",
 
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
+                    message.textContent = "";
 
-                            body: JSON.stringify({
-                                username: username,
-                                password: password
-                            })
+                    message.className = "";
+
+
+                    // =================================================
+                    // SEND LOGIN REQUEST
+                    // =================================================
+
+                    try {
+
+                        console.log(
+                            "Logging in user:",
+                            username
+                        );
+
+
+                        const response =
+                            await fetch(
+                                "/API/Login",
+                                {
+
+                                    method: "POST",
+
+                                    headers: {
+
+                                        "Content-Type":
+                                            "application/json"
+
+                                    },
+
+                                    body: JSON.stringify({
+
+                                        username:
+                                            username,
+
+                                        password:
+                                            password
+
+                                    })
+
+                                }
+                            );
+
+
+                        // =================================================
+                        // READ API RESPONSE
+                        // =================================================
+
+                        const data =
+                            await response.json();
+
+
+                        console.log(
+                            "Login Response:",
+                            data
+                        );
+
+
+                        // =================================================
+                        // LOGIN SUCCESS
+                        // =================================================
+
+                        if (
+                            response.ok &&
+                            data.message ===
+                                "Login successful"
+                        ) {
+
+
+                            // =============================================
+                            // SAVE USER ID
+                            // =============================================
+
+                            localStorage.setItem(
+                                "user_id",
+                                data.user_id
+                            );
+
+
+                            // =============================================
+                            // SAVE USERNAME
+                            // =============================================
+
+                            localStorage.setItem(
+                                "username",
+                                data.username
+                            );
+
+
+                            // =============================================
+                            // SAVE EMAIL
+                            // =============================================
+
+                            localStorage.setItem(
+                                "email",
+                                data.email
+                            );
+
+
+                            // =============================================
+                            // SAVE ROLE
+                            // =============================================
+
+                            localStorage.setItem(
+                                "role",
+                                data.role
+                            );
+
+
+                            // =============================================
+                            // CHECK SAVED DATA
+                            // =============================================
+
+                            console.log(
+                                "User ID:",
+                                localStorage.getItem(
+                                    "user_id"
+                                )
+                            );
+
+                            console.log(
+                                "Username:",
+                                localStorage.getItem(
+                                    "username"
+                                )
+                            );
+
+                            console.log(
+                                "Email:",
+                                localStorage.getItem(
+                                    "email"
+                                )
+                            );
+
+                            console.log(
+                                "Role:",
+                                localStorage.getItem(
+                                    "role"
+                                )
+                            );
+
+
+                            // =============================================
+                            // SUCCESS MESSAGE
+                            // =============================================
+
+                            message.textContent =
+                                "Login successful!";
+
+                            message.className =
+                                "success";
+
+
+                            // =============================================
+                            // GO TO DASHBOARD
+                            // =============================================
+
+                            setTimeout(
+                                function() {
+
+                                    window.location.href =
+                                        "/dashboard?user_id="
+                                        + data.user_id;
+
+                                },
+                                500
+                            );
+
                         }
-                    );
 
 
-                    const data =
-                        await response.json();
+                        // =================================================
+                        // LOGIN FAILED
+                        // =================================================
 
+                        else {
 
-                    // -------------------------
-                    // Login successful
-                    // -------------------------
+                            message.textContent =
+                                data.detail ||
+                                "Invalid Username or Password.";
 
-                    if (response.ok) {
+                            message.className =
+                                "error";
 
-                        // Go to dashboard
-
-                        window.location.href =
-                            "/dashboard?user_id="
-                            + data.user_id;
+                        }
 
                     }
 
 
-                    // -------------------------
-                    // Login failed
-                    // -------------------------
+                    // =====================================================
+                    // SERVER ERROR
+                    // =====================================================
 
-                    else {
+                    catch (error) {
+
+                        console.error(
+                            "Login Error:",
+                            error
+                        );
+
 
                         message.textContent =
-                            "Invalid Username or Password";
+                            "Unable to connect to server.";
 
                         message.className =
                             "error";
@@ -238,21 +412,7 @@
                     }
 
                 }
-
-
-                catch (error) {
-
-                    console.error(error);
-
-                    message.textContent =
-                        "Unable to connect to server";
-
-                    message.className =
-                        "error";
-
-                }
-
-            });
+            );
 
     </script>
 
