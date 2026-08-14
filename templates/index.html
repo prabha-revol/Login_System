@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,132 +7,276 @@
     <title>IoT Monitoring System</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
-            background: #f4f6f8;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            height: 100vh;
-        }
-
-        .container {
-            background: white;
-            padding: 45px;
-            width: 400px;
-
-            text-align: center;
-
-            border-radius: 12px;
-
-            box-shadow:
-                0 5px 20px rgba(0,0,0,0.15);
-        }
-
-        h1 {
-            color: #1e88e5;
-            margin-bottom: 10px;
-        }
-
-        p {
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-
-            margin: 10px 0;
-
-            border: none;
-            border-radius: 7px;
-
-            font-size: 17px;
-
-            cursor: pointer;
-        }
-
-        .register {
-            background: #1e88e5;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #0369a1);
             color: white;
         }
 
-        .login {
-            background: white;
-            color: #1e88e5;
-
-            border: 1px solid #1e88e5;
+        .navbar {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
         }
 
-        button:hover {
-            opacity: 0.9;
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
         }
 
+        .logo span {
+            color: #38bdf8;
+        }
+
+        .hero {
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .iot-icon {
+            font-size: 75px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        h1 span {
+            color: #38bdf8;
+        }
+
+        .description {
+            font-size: 19px;
+            line-height: 1.7;
+            color: #dbeafe;
+            margin-bottom: 35px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 14px 35px;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .login-btn {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        .login-btn:hover {
+            background: #7dd3fc;
+            transform: translateY(-2px);
+        }
+
+        .register-btn {
+            border: 2px solid #38bdf8;
+            color: white;
+        }
+
+        .register-btn:hover {
+            background: #38bdf8;
+            color: #0f172a;
+            transform: translateY(-2px);
+        }
+
+        .features {
+            margin-top: 55px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            width: 200px;
+            padding: 20px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .feature h3 {
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            font-size: 14px;
+            color: #dbeafe;
+        }
+
+        @media (max-width: 600px) {
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .description {
+                font-size: 16px;
+            }
+
+            .navbar {
+                padding: 0 5%;
+            }
+        }
     </style>
-
 </head>
 
 <body>
 
-    <div class="container">
+    <!-- NAVBAR -->
 
-        <h1>
-            IoT Monitoring System
-        </h1>
+    <nav class="navbar">
 
-        <p>
-            Please choose an option
-        </p>
+        <div class="logo">
+            IoT<span>Monitor</span>
+        </div>
 
-
-        <!-- REGISTER -->
-
-        <button
-            class="register"
-            onclick="goToRegister()">
-
-            👤 Register User
-
-        </button>
+    </nav>
 
 
-        <!-- LOGIN -->
+    <!-- HERO SECTION -->
 
-        <button
-            class="login"
-            onclick="goToLogin()">
+    <section class="hero">
 
-            🔐 Login
+        <div class="hero-content">
 
-        </button>
+            <div class="iot-icon">
+                🌐📡
+            </div>
 
-    </div>
+            <h1>
+                IoT <span>Monitoring System</span>
+            </h1>
+
+            <p class="description">
+
+                Monitor your connected devices and sensor data
+                from one simple dashboard.
+
+                View device information, real-time sensor values
+                and historical sensor data.
+
+            </p>
 
 
-    <script>
+            <!-- LOGIN / REGISTER -->
 
-        function goToRegister() {
+            <div class="buttons">
 
-            window.location.href =
-                "/Register";
+                <a
+                    href="/Login"
+                    class="btn login-btn"
+                >
+                    🔐 Login
+                </a>
 
-        }
+
+                <a
+                    href="/Register"
+                    class="btn register-btn"
+                >
+                    👤 Register
+                </a>
+
+            </div>
 
 
-        function goToLogin() {
+            <!-- FEATURES -->
 
-            window.location.href =
-                "/Login";
+            <div class="features">
 
-        }
+                <div class="feature">
 
-    </script>
+                    <div class="feature-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        Dashboard
+                    </h3>
+
+                    <p>
+                        Monitor your IoT devices
+                        from one dashboard.
+                    </p>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        🌡️
+                    </div>
+
+                    <h3>
+                        Sensors
+                    </h3>
+
+                    <p>
+                        View temperature,
+                        pressure and sensor values.
+                    </p>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        📈
+                    </div>
+
+                    <h3>
+                        History
+                    </h3>
+
+                    <p>
+                        Track historical sensor
+                        data and measurements.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
 
 </body>
-
 </html>
