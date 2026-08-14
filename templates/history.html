@@ -1,4 +1,3 @@
-history.html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,90 +8,335 @@ history.html
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Sensor History</title>
+    <title>Sensor History - IoT Monitoring System</title>
 
     <style>
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
         .header {
-            background-color: #1e88e5;
+            min-height: 70px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #0369a1
+                );
+
             color: white;
-            padding: 20px;
-            text-align: center;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 15px 35px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0, 0, 0, 0.15);
         }
 
-        .header h1 {
-            margin: 0;
-            font-size: 40px;
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
         }
 
-        .container {
-            width: 90%;
-            margin: 30px auto;
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            padding: 30px 35px;
         }
 
-        .title {
-            font-size: 28px;
+
+        .title-section {
             margin-bottom: 20px;
         }
+
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 7px;
+        }
+
+
+        .subtitle {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           HEADER BACK BUTTON
+        ========================= */
+
+        .back-btn {
+            border: none;
+
+            background: #475569;
+
+            color: white;
+
+            padding: 10px 17px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            font-size: 14px;
+        }
+
+
+        .back-btn:hover {
+            background: #334155;
+        }
+
+
+        /* =========================
+           HISTORY ACTIONS
+        ========================= */
+
+        .history-actions {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================
+           VIEW GRAPH BUTTON
+        ========================= */
+
+        .graph-btn {
+
+            border: none;
+
+            background: #0284c7;
+
+            color: white;
+
+            padding: 10px 17px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+
+        .graph-btn:hover {
+
+            background: #0369a1;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =========================
+           TABLE CARD
+        ========================= */
+
+        .table-card {
+
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(15, 23, 42, 0.08);
+
+            border: 1px solid #e2e8f0;
+
+            overflow-x: auto;
+        }
+
+
+        /* =========================
+           TABLE
+        ========================= */
 
         table {
+
             width: 100%;
+
             border-collapse: collapse;
-            background-color: white;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+
+            min-width: 750px;
         }
+
+
+        thead {
+
+            background: #e0f2fe;
+        }
+
 
         th {
-            background-color: #e51ec4;
-            color: white;
+
             padding: 15px;
+
             text-align: left;
+
+            color: #075985;
+
+            font-size: 14px;
+
+            white-space: nowrap;
         }
+
 
         td {
-            padding: 14px;
-            border-bottom: 1px solid #ddd;
+
+            padding: 15px;
+
+            border-bottom:
+                1px solid #e2e8f0;
+
+            font-size: 14px;
+
+            color: #475569;
         }
 
-        tr:hover {
-            background-color: #f1f1f1;
+
+        tbody tr:hover {
+
+            background: #f8fafc;
         }
 
-        .no-data {
+
+        /* =========================
+           SENSOR VALUE
+        ========================= */
+
+        td:nth-child(3) {
+
+            font-weight: bold;
+
+            color: #0284c7;
+        }
+
+
+        /* =========================
+           UNIT
+        ========================= */
+
+        td:nth-child(4) {
+
+            font-weight: bold;
+
+            color: #334155;
+        }
+
+
+        /* =========================
+           DATE & TIME
+        ========================= */
+
+        td:nth-child(5) {
+
+            white-space: nowrap;
+
+            color: #64748b;
+        }
+
+
+        /* =========================
+           EMPTY MESSAGE
+        ========================= */
+
+        .empty-message {
+
             text-align: center;
-            padding: 30px;
-            font-size: 20px;
-            color: #666;
+
+            padding: 40px;
+
+            color: #64748b;
         }
 
-        .error {
-            text-align: center;
-            color: red;
-            font-size: 20px;
-            padding: 20px;
-        }
 
-        .back-button {
-            display: inline-block;
-            margin-bottom: 20px;
-            padding: 10px 18px;
-            background-color: #1e88e5;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 18px;
-            cursor: pointer;
-        }
+        /* =========================
+           RESPONSIVE
+        ========================= */
 
-        .back-button:hover {
-            background-color: #1565c0;
+        @media (max-width: 600px) {
+
+            .main {
+
+                padding: 20px 15px;
+            }
+
+
+            .header {
+
+                padding: 15px;
+            }
+
+
+            .logo {
+
+                font-size: 17px;
+            }
+
+
+            h1 {
+
+                font-size: 24px;
+            }
+
+
+            .subtitle {
+
+                font-size: 13px;
+            }
+
+
+            .back-btn {
+
+                padding: 8px 12px;
+
+                font-size: 13px;
+            }
+
+
+            .graph-btn {
+
+                padding: 9px 13px;
+
+                font-size: 13px;
+            }
+
         }
 
     </style>
@@ -102,79 +346,148 @@ history.html
 
 <body>
 
-    <!-- HEADER -->
 
-    <div class="header">
+    <!-- =========================
+         HEADER
+    ========================= -->
 
-        <h1>IoT Sensor History</h1>
+    <header class="header">
 
-    </div>
+        <div class="logo">
 
-
-    <!-- MAIN CONTAINER -->
-
-    <div class="container">
-
-
-        <!-- BACK BUTTON -->
-
-        <button
-            id="backDashboard"
-            class="back-button"
-            type="button">
-
-            ← Back to Dashboard
-
-        </button>
-
-
-        <!-- TITLE -->
-
-        <div class="title">
-
-            Sensor History
+            📡 IoT Monitoring System
 
         </div>
 
 
-        <!-- HISTORY TABLE -->
+        <button
+            id="backDashboard"
+            class="back-btn"
+            type="button"
+        >
 
-        <table>
+            ← Dashboard
 
-            <thead>
+        </button>
 
-                <tr>
-
-                    <th>Device</th>
-
-                    <th>Type</th>
-
-                    <th>Value</th>
-
-                    <th>Unit</th>
-
-                    <th>Date & Time</th>
-
-                </tr>
-
-            </thead>
+    </header>
 
 
-            <tbody id="historyTable">
 
-                <!-- History data will be inserted by history.js -->
+    <!-- =========================
+         MAIN
+    ========================= -->
 
-            </tbody>
-
-        </table>
-
-
-    </div>
+    <main class="main">
 
 
-    <!-- JAVASCRIPT -->
+        <!-- TITLE -->
 
-    <script src="/static/history.js"></script>
+        <div class="title-section">
+
+            <h1>
+                Sensor History
+            </h1>
+
+            <p class="subtitle">
+
+                View historical sensor readings
+                from your IoT devices.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =========================
+             ACTION BUTTONS
+        ========================= -->
+
+        <div class="history-actions">
+
+            <button
+                type="button"
+                id="graphBtn"
+                class="graph-btn"
+            >
+
+                📊 View Graph
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =========================
+             HISTORY TABLE
+        ========================= -->
+
+        <div class="table-card">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Device Name
+                        </th>
+
+                        <th>
+                            Device Type
+                        </th>
+
+                        <th>
+                            Value
+                        </th>
+
+                        <th>
+                            Unit
+                        </th>
+
+                        <th>
+                            Date &amp; Time
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="historyTable">
+
+                    <tr>
+
+                        <td
+                            colspan="5"
+                            class="empty-message"
+                        >
+
+                            Loading sensor history...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================
+         HISTORY JAVASCRIPT
+    ========================= -->
+
+    <script src="/static/history.js?v=2"></script>
+
 
 </body>
 
