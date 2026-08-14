@@ -8,108 +8,297 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>IoT Monitoring System</title>
+    <title>Login - IoT Monitoring System</title>
 
     <style>
 
-        body {
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background: #f4f4f4;
-            font-family: Arial, sans-serif;
         }
 
-        .login-box {
+        body {
 
-            width: 500px;
+            min-height: 100vh;
 
-            margin: 55px auto;
+            font-family: Arial, sans-serif;
 
-            padding: 35px 50px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #0369a1
+                );
 
-            background: white;
+            display: flex;
 
-            border-radius: 12px;
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+        }
+
+
+        /* =========================
+           LOGIN CARD
+        ========================= */
+
+        .login-card {
+
+            width: 420px;
+
+            background: rgba(255,255,255,0.97);
+
+            padding: 40px;
+
+            border-radius: 18px;
 
             box-shadow:
-                0 2px 12px rgba(0, 0, 0, 0.25);
-
-            box-sizing: border-box;
+                0 20px 50px
+                rgba(0,0,0,0.30);
         }
+
+
+        /* =========================
+           ICON
+        ========================= */
+
+        .iot-icon {
+
+            text-align: center;
+
+            font-size: 55px;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* =========================
+           TITLE
+        ========================= */
 
         h1 {
 
             text-align: center;
 
-            font-size: 30px;
+            color: #0f172a;
 
-            margin-bottom: 25px;
+            font-size: 28px;
 
-            font-weight: 700;
+            margin-bottom: 8px;
         }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 14px;
+
+            margin-bottom: 30px;
+        }
+
+
+        /* =========================
+           LABEL
+        ========================= */
+
+        label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #334155;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           INPUT
+        ========================= */
+
+        .input-group {
+
+            margin-bottom: 20px;
+        }
+
 
         input {
 
             width: 100%;
 
-            height: 40px;
+            height: 46px;
 
-            margin-bottom: 15px;
+            padding: 0 14px;
 
-            padding: 0 12px;
+            border: 1px solid #cbd5e1;
+
+            border-radius: 8px;
 
             font-size: 15px;
 
-            border: 1px solid #999;
+            outline: none;
 
-            box-sizing: border-box;
-
-            border-radius: 5px;
+            transition: 0.2s;
         }
+
+
+        input:focus {
+
+            border-color: #0284c7;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(14,165,233,0.15);
+        }
+
+
+        /* =========================
+           LOGIN BUTTON
+        ========================= */
 
         button {
 
             width: 100%;
 
-            height: 40px;
-
-            background: #2196f3;
-
-            color: white;
+            height: 48px;
 
             border: none;
 
+            border-radius: 8px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0284c7,
+                    #0369a1
+                );
+
+            color: white;
+
             font-size: 16px;
+
+            font-weight: bold;
 
             cursor: pointer;
 
-            border-radius: 5px;
+            transition: 0.3s;
         }
+
 
         button:hover {
 
-            background: #1976d2;
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(3,105,161,0.30);
         }
+
+
+        /* =========================
+           MESSAGE
+        ========================= */
 
         #message {
 
             text-align: center;
 
-            margin-top: 12px;
+            margin-top: 15px;
 
-            font-size: 16px;
+            min-height: 20px;
 
-            font-weight: bold;
-        }
-
-        .error {
+            font-size: 14px;
 
             color: red;
         }
 
-        .success {
 
-            color: green;
+        /* =========================
+           REGISTER LINK
+        ========================= */
+
+        .register-link {
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        .register-link a {
+
+            color: #0284c7;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        .register-link a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           BACK HOME
+        ========================= */
+
+        .home-link {
+
+            text-align: center;
+
+            margin-top: 18px;
+        }
+
+
+        .home-link a {
+
+            color: #64748b;
+
+            text-decoration: none;
+
+            font-size: 13px;
+        }
+
+
+        .home-link a:hover {
+
+            color: #0284c7;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 500px) {
+
+            .login-card {
+
+                width: 100%;
+
+                padding: 30px 25px;
+            }
+
+            h1 {
+
+                font-size: 24px;
+            }
         }
 
     </style>
@@ -119,302 +308,124 @@
 
 <body>
 
-    <div class="login-box">
+
+    <!-- =========================
+         LOGIN CARD
+    ========================= -->
+
+    <div class="login-card">
+
+
+        <div class="iot-icon">
+            📡
+        </div>
+
 
         <h1>
             IoT Monitoring System
         </h1>
 
 
+        <p class="subtitle">
+            Sign in to access your monitoring dashboard
+        </p>
+
+
+        <!-- =========================
+             LOGIN FORM
+        ========================= -->
+
         <form id="loginForm">
 
-            <input
-                type="text"
-                id="username"
-                placeholder="Username"
-                required
-            >
+
+            <div class="input-group">
+
+                <label for="username">
+                    Username
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
 
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Password"
-                required
-            >
+            <div class="input-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
 
 
             <button type="submit">
-                Login
+
+                🔐 Login
+
             </button>
+
 
         </form>
 
 
+        <!-- =========================
+             MESSAGE
+        ========================= -->
+
         <div id="message"></div>
+
+
+        <!-- =========================
+             REGISTER
+        ========================= -->
+
+        <div class="register-link">
+
+            Don't have an account?
+
+            <a href="/Register">
+                Register
+            </a>
+
+        </div>
+
+
+        <!-- =========================
+             HOME
+        ========================= -->
+
+        <div class="home-link">
+
+            <a href="/">
+                ← Back to Home
+            </a>
+
+        </div>
+
 
     </div>
 
 
-    <script>
+    <!-- =========================
+         LOGIN JAVASCRIPT
+    ========================= -->
 
-        // =====================================================
-        // LOGIN FORM
-        // =====================================================
+    <script src="/static/login.js"></script>
 
-        document
-            .getElementById("loginForm")
-            .addEventListener(
-                "submit",
-                async function(event) {
-
-                    event.preventDefault();
-
-
-                    // =================================================
-                    // GET USERNAME
-                    // =================================================
-
-                    const username =
-                        document
-                        .getElementById("username")
-                        .value
-                        .trim();
-
-
-                    // =================================================
-                    // GET PASSWORD
-                    // =================================================
-
-                    const password =
-                        document
-                        .getElementById("password")
-                        .value;
-
-
-                    // =================================================
-                    // MESSAGE ELEMENT
-                    // =================================================
-
-                    const message =
-                        document
-                        .getElementById("message");
-
-
-                    message.textContent = "";
-
-                    message.className = "";
-
-
-                    // =================================================
-                    // SEND LOGIN REQUEST
-                    // =================================================
-
-                    try {
-
-                        console.log(
-                            "Logging in user:",
-                            username
-                        );
-
-
-                        const response =
-                            await fetch(
-                                "/API/Login",
-                                {
-
-                                    method: "POST",
-
-                                    headers: {
-
-                                        "Content-Type":
-                                            "application/json"
-
-                                    },
-
-                                    body: JSON.stringify({
-
-                                        username:
-                                            username,
-
-                                        password:
-                                            password
-
-                                    })
-
-                                }
-                            );
-
-
-                        // =================================================
-                        // READ API RESPONSE
-                        // =================================================
-
-                        const data =
-                            await response.json();
-
-
-                        console.log(
-                            "Login Response:",
-                            data
-                        );
-
-
-                        // =================================================
-                        // LOGIN SUCCESS
-                        // =================================================
-
-                        if (
-                            response.ok &&
-                            data.message ===
-                                "Login successful"
-                        ) {
-
-
-                            // =============================================
-                            // SAVE USER ID
-                            // =============================================
-
-                            localStorage.setItem(
-                                "user_id",
-                                data.user_id
-                            );
-
-
-                            // =============================================
-                            // SAVE USERNAME
-                            // =============================================
-
-                            localStorage.setItem(
-                                "username",
-                                data.username
-                            );
-
-
-                            // =============================================
-                            // SAVE EMAIL
-                            // =============================================
-
-                            localStorage.setItem(
-                                "email",
-                                data.email
-                            );
-
-
-                            // =============================================
-                            // SAVE ROLE
-                            // =============================================
-
-                            localStorage.setItem(
-                                "role",
-                                data.role
-                            );
-
-
-                            // =============================================
-                            // CHECK SAVED DATA
-                            // =============================================
-
-                            console.log(
-                                "User ID:",
-                                localStorage.getItem(
-                                    "user_id"
-                                )
-                            );
-
-                            console.log(
-                                "Username:",
-                                localStorage.getItem(
-                                    "username"
-                                )
-                            );
-
-                            console.log(
-                                "Email:",
-                                localStorage.getItem(
-                                    "email"
-                                )
-                            );
-
-                            console.log(
-                                "Role:",
-                                localStorage.getItem(
-                                    "role"
-                                )
-                            );
-
-
-                            // =============================================
-                            // SUCCESS MESSAGE
-                            // =============================================
-
-                            message.textContent =
-                                "Login successful!";
-
-                            message.className =
-                                "success";
-
-
-                            // =============================================
-                            // GO TO DASHBOARD
-                            // =============================================
-
-                            setTimeout(
-                                function() {
-
-                                    window.location.href =
-                                        "/dashboard?user_id="
-                                        + data.user_id;
-
-                                },
-                                500
-                            );
-
-                        }
-
-
-                        // =================================================
-                        // LOGIN FAILED
-                        // =================================================
-
-                        else {
-
-                            message.textContent =
-                                data.detail ||
-                                "Invalid Username or Password.";
-
-                            message.className =
-                                "error";
-
-                        }
-
-                    }
-
-
-                    // =====================================================
-                    // SERVER ERROR
-                    // =====================================================
-
-                    catch (error) {
-
-                        console.error(
-                            "Login Error:",
-                            error
-                        );
-
-
-                        message.textContent =
-                            "Unable to connect to server.";
-
-                        message.className =
-                            "error";
-
-                    }
-
-                }
-            );
-
-    </script>
 
 </body>
 
