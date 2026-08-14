@@ -8,108 +8,203 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Register User</title>
+    <title>Register - IoT Monitoring System</title>
 
     <style>
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        body {
 
             min-height: 100vh;
-            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #0369a1
+                );
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
         }
 
-        .container {
 
-            width: 400px;
+        /* =========================
+           REGISTER CARD
+        ========================= */
 
-            background: white;
+        .register-card {
 
-            padding: 35px;
+            width: 430px;
 
-            border-radius: 12px;
+            background: rgba(255,255,255,0.97);
+
+            padding: 40px;
+
+            border-radius: 18px;
 
             box-shadow:
-                0 5px 20px rgba(0,0,0,0.15);
+                0 20px 50px
+                rgba(0,0,0,0.30);
         }
 
-        h1 {
+
+        /* =========================
+           ICON
+        ========================= */
+
+        .iot-icon {
+
             text-align: center;
-            color: #1e88e5;
+
+            font-size: 55px;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* =========================
+           TITLE
+        ========================= */
+
+        h1 {
+
+            text-align: center;
+
+            color: #0f172a;
+
+            font-size: 28px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .subtitle {
+
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 14px;
+
             margin-bottom: 30px;
         }
+
+
+        /* =========================
+           INPUT GROUP
+        ========================= */
+
+        .input-group {
+
+            margin-bottom: 18px;
+        }
+
 
         label {
 
             display: block;
 
-            margin-top: 15px;
             margin-bottom: 7px;
+
+            color: #334155;
+
+            font-size: 14px;
 
             font-weight: bold;
         }
+
 
         input {
 
             width: 100%;
 
-            padding: 12px;
+            height: 46px;
 
-            border: 1px solid #ccc;
+            padding: 0 14px;
 
-            border-radius: 6px;
+            border: 1px solid #cbd5e1;
 
-            font-size: 16px;
+            border-radius: 8px;
 
-            box-sizing: border-box;
+            font-size: 15px;
+
+            outline: none;
+
+            transition: 0.2s;
         }
+
+
+        input:focus {
+
+            border-color: #0284c7;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(14,165,233,0.15);
+        }
+
+
+        /* =========================
+           REGISTER BUTTON
+        ========================= */
 
         button {
 
             width: 100%;
 
-            padding: 13px;
+            height: 48px;
 
-            margin-top: 25px;
-
-            background: #1e88e5;
-
-            color: white;
+            margin-top: 8px;
 
             border: none;
 
-            border-radius: 7px;
+            border-radius: 8px;
 
-            font-size: 17px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #0284c7,
+                    #0369a1
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
 
             cursor: pointer;
+
+            transition: 0.3s;
         }
+
 
         button:hover {
 
-            background: #1565c0;
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(3,105,161,0.30);
         }
 
-        .login-link {
 
-            text-align: center;
-
-            margin-top: 20px;
-        }
-
-        .login-link a {
-
-            color: #1e88e5;
-
-            text-decoration: none;
-
-            font-weight: bold;
-        }
+        /* =========================
+           MESSAGE
+        ========================= */
 
         #message {
 
@@ -117,92 +212,234 @@
 
             margin-top: 15px;
 
+            min-height: 20px;
+
+            font-size: 14px;
+
             font-weight: bold;
+        }
+
+
+        /* =========================
+           LOGIN LINK
+        ========================= */
+
+        .login-link {
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #64748b;
+
+            font-size: 14px;
+        }
+
+
+        .login-link a {
+
+            color: #0284c7;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        .login-link a:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           HOME LINK
+        ========================= */
+
+        .home-link {
+
+            text-align: center;
+
+            margin-top: 18px;
+        }
+
+
+        .home-link a {
+
+            color: #64748b;
+
+            text-decoration: none;
+
+            font-size: 13px;
+        }
+
+
+        .home-link a:hover {
+
+            color: #0284c7;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 500px) {
+
+            .register-card {
+
+                width: 100%;
+
+                padding: 30px 25px;
+            }
+
+            h1 {
+
+                font-size: 24px;
+            }
         }
 
     </style>
 
 </head>
 
+
 <body>
 
 
-<div class="container">
+    <!-- =========================
+         REGISTER CARD
+    ========================= -->
 
-    <h1>
-        Register User
-    </h1>
-
-
-    <form
-        id="registerForm"
-        onsubmit="event.preventDefault(); registerUser();"
-    >
-
-        <label>
-            Username
-        </label>
-
-        <input
-            type="text"
-            id="username"
-            required
-        >
+    <div class="register-card">
 
 
-        <label>
-            Email
-        </label>
-
-        <input
-            type="email"
-            id="email"
-            required
-        >
+        <div class="iot-icon">
+            👤
+        </div>
 
 
-        <label>
-            Password
-        </label>
-
-        <input
-            type="password"
-            id="password"
-            required
-        >
+        <h1>
+            Create Account
+        </h1>
 
 
-        <button type="submit">
-
-            Register
-
-        </button>
-
-    </form>
+        <p class="subtitle">
+            Register to access the IoT monitoring system
+        </p>
 
 
-    <div id="message"></div>
+        <!-- =========================
+             REGISTER FORM
+        ========================= -->
+
+        <form id="registerForm">
 
 
-    <div class="login-link">
+            <div class="input-group">
 
-        Already registered?
+                <label for="username">
+                    Username
+                </label>
 
-        <a href="/Login">
-            Login
-        </a>
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter username"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter email address"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Create password"
+                    autocomplete="new-password"
+                    required
+                >
+
+            </div>
+
+
+            <button type="submit">
+
+                👤 Create Account
+
+            </button>
+
+
+        </form>
+
+
+        <!-- =========================
+             MESSAGE
+        ========================= -->
+
+        <div id="message"></div>
+
+
+        <!-- =========================
+             LOGIN LINK
+        ========================= -->
+
+        <div class="login-link">
+
+            Already have an account?
+
+            <a href="/Login">
+                Login
+            </a>
+
+        </div>
+
+
+        <!-- =========================
+             HOME LINK
+        ========================= -->
+
+        <div class="home-link">
+
+            <a href="/">
+                ← Back to Home
+            </a>
+
+        </div>
+
 
     </div>
 
 
-</div>
+    <!-- =========================
+         REGISTER JAVASCRIPT
+    ========================= -->
 
-
-<!-- ==============================
-     REGISTER JAVASCRIPT
-============================== -->
-
-<script src="/static/register.js"></script>
+    <script src="/static/register.js"></script>
 
 
 </body>
