@@ -2,7 +2,10 @@
 // GET LOGGED-IN USER ID
 // =====================================================
 
-const userId = localStorage.getItem("user_id");
+let userId =
+    localStorage.getItem("user_id");
+
+console.log("History User ID:", userId);
 
 
 // =====================================================
@@ -15,6 +18,9 @@ const historyTable =
 const backDashboard =
     document.getElementById("backDashboard");
 
+const graphBtn =
+    document.getElementById("graphBtn");
+
 
 // =====================================================
 // CHECK USER ID
@@ -22,19 +28,19 @@ const backDashboard =
 
 if (!userId) {
 
+    console.error("User ID not found");
+
     if (historyTable) {
 
         historyTable.innerHTML = `
             <tr>
-                <td colspan="5">
+                <td colspan="5" class="empty-message">
                     User ID not found.
                     Please login again.
                 </td>
             </tr>
         `;
-
     }
-
 }
 
 
@@ -47,6 +53,10 @@ if (backDashboard) {
     backDashboard.addEventListener(
         "click",
         function () {
+
+            console.log(
+                "Dashboard button clicked"
+            );
 
             if (userId) {
 
@@ -62,6 +72,66 @@ if (backDashboard) {
 
         }
     );
+}
+
+
+// =====================================================
+// VIEW GRAPH
+// =====================================================
+
+if (graphBtn) {
+
+    console.log(
+        "Graph button found successfully"
+    );
+
+    graphBtn.addEventListener(
+        "click",
+        function () {
+
+            console.log(
+                "VIEW GRAPH BUTTON CLICKED"
+            );
+
+            console.log(
+                "User ID:",
+                userId
+            );
+
+
+            // Check User ID
+
+            if (!userId) {
+
+                alert(
+                    "User ID not found. Please login again."
+                );
+
+                return;
+            }
+
+
+            // Open Graph page
+
+            const graphURL =
+                `/graph?user_id=${userId}`;
+
+            console.log(
+                "Opening:",
+                graphURL
+            );
+
+            window.location.href =
+                graphURL;
+
+        }
+    );
+
+} else {
+
+    console.error(
+        "ERROR: graphBtn element not found"
+    );
 
 }
 
@@ -76,6 +146,7 @@ async function loadHistory() {
         return;
     }
 
+
     try {
 
         console.log(
@@ -84,9 +155,7 @@ async function loadHistory() {
         );
 
 
-        // =================================================
-        // CALL HISTORY API
-        // =================================================
+        // Call History API
 
         const response =
             await fetch(
@@ -100,10 +169,6 @@ async function loadHistory() {
         );
 
 
-        // =================================================
-        // CHECK API RESPONSE
-        // =================================================
-
         if (!response.ok) {
 
             const errorData =
@@ -114,13 +179,10 @@ async function loadHistory() {
                 errorData.detail ||
                 "History API failed"
             );
-
         }
 
 
-        // =================================================
-        // READ JSON
-        // =================================================
+        // Get JSON
 
         const result =
             await response.json();
@@ -132,36 +194,23 @@ async function loadHistory() {
         );
 
 
-        // =================================================
-        // CLEAR OLD TABLE
-        // =================================================
+        // Clear table
 
         historyTable.innerHTML = "";
 
-
-        // =================================================
-        // GET HISTORY
-        // =================================================
 
         const history =
             result.history || [];
 
 
-        console.log(
-            "History records:",
-            history
-        );
-
-
-        // =================================================
-        // NO HISTORY
-        // =================================================
+        // No data
 
         if (history.length === 0) {
 
             historyTable.innerHTML = `
                 <tr>
-                    <td colspan="5">
+                    <td colspan="5"
+                        class="empty-message">
                         No history data found.
                     </td>
                 </tr>
@@ -172,174 +221,118 @@ async function loadHistory() {
 
 
         // =================================================
-        // LOOP THROUGH DEVICES
+        // LOOP DEVICES
         // =================================================
 
-        history.forEach(device => {
-
-            // ---------------------------------------------
-            // CHECK SENSOR DATA
-            // ---------------------------------------------
-
-            if (
-                !device.data ||
-                device.data.length === 0
-            ) {
-
-                return;
-            }
-
-
-            // ---------------------------------------------
-            // LOOP THROUGH SENSOR RECORDS
-            // ---------------------------------------------
-
-            device.data.forEach(item => {
-
-
-                // =========================================
-                // DEFAULT VALUE / UNIT
-                // =========================================
-
-                let value = "N/A";
-
-                let unit = "N/A";
-
-
-                // =========================================
-                // TEMPERATURE
-                // =========================================
+        history.forEach(
+            function(device) {
 
                 if (
-                    item.temperature !== null &&
-                    item.temperature !== undefined
+                    !device.data ||
+                    device.data.length === 0
                 ) {
-
-                    value =
-                        item.temperature;
-
-                    unit =
-                        "°C";
+                    return;
                 }
 
 
-                // =========================================
-                // PRESSURE
-                // =========================================
+                // =================================================
+                // LOOP SENSOR DATA
+                // =================================================
 
-                else if (
-                    item.pressure !== null &&
-                    item.pressure !== undefined
-                ) {
+                device.data.forEach(
+                    function(item) {
 
-                    value =
-                        item.pressure;
-
-                    unit =
-                        "bar";
-                }
+                        let value = "N/A";
+                        let unit = "N/A";
 
 
-                // =========================================
-                // DATE & TIME
-                // =========================================
+                        // Temperature
 
-                let dateTime = "N/A";
+                        if (
+                            item.temperature !== null &&
+                            item.temperature !== undefined
+                        ) {
+
+                            value =
+                                item.temperature;
+
+                            unit =
+                                "°C";
+                        }
 
 
-                if (
-                    item.created_at !== null &&
-                    item.created_at !== undefined
-                ) {
+                        // Pressure
 
-                    const date =
-                        new Date(
-                            item.created_at
+                        else if (
+                            item.pressure !== null &&
+                            item.pressure !== undefined
+                        ) {
+
+                            value =
+                                item.pressure;
+
+                            unit =
+                                "bar";
+                        }
+
+
+                        // =================================================
+                        // CREATE ROW
+                        // =================================================
+
+                        const row =
+                            document.createElement("tr");
+
+
+                        row.innerHTML = `
+
+                            <td>
+                                ${
+                                    device.device_name ||
+                                    "N/A"
+                                }
+                            </td>
+
+                            <td>
+                                ${
+                                    device.device_type ||
+                                    "N/A"
+                                }
+                            </td>
+
+                            <td>
+                                ${value}
+                            </td>
+
+                            <td>
+                                ${unit}
+                            </td>
+
+                            <td>
+                                ${
+                                    item.created_at
+                                    ? new Date(
+                                        item.created_at
+                                      ).toLocaleString()
+                                    : "N/A"
+                                }
+                            </td>
+
+                        `;
+
+
+                        historyTable.appendChild(
+                            row
                         );
 
-
-                    if (
-                        !isNaN(
-                            date.getTime()
-                        )
-                    ) {
-
-                        dateTime =
-                            date.toLocaleString();
-
                     }
+                );
 
-                }
-
-
-                // =========================================
-                // CREATE TABLE ROW
-                // =========================================
-
-                const row =
-                    document.createElement("tr");
-
-
-                row.innerHTML = `
-
-                    <td>
-                        ${device.device_name || "N/A"}
-                    </td>
-
-                    <td>
-                        ${device.device_type || "N/A"}
-                    </td>
-
-                    <td>
-                        ${value}
-                    </td>
-
-                    <td>
-                        ${unit}
-                    </td>
-
-                    <td>
-                        ${dateTime}
-                    </td>
-
-                `;
-
-
-                // =========================================
-                // ADD ROW TO TABLE
-                // =========================================
-
-                historyTable.appendChild(row);
-
-            });
-
-        });
-
-
-        // =================================================
-        // CHECK IF NO ROWS WERE CREATED
-        // =================================================
-
-        if (
-            historyTable.children.length === 0
-        ) {
-
-            historyTable.innerHTML = `
-                <tr>
-                    <td colspan="5">
-                        No sensor records found.
-                    </td>
-                </tr>
-            `;
-
-        }
+            }
+        );
 
     }
 
-
-    // =====================================================
-    // ERROR
-    // =====================================================
 
     catch (error) {
 
@@ -353,11 +346,14 @@ async function loadHistory() {
 
             <tr>
 
-                <td colspan="5">
+                <td
+                    colspan="5"
+                    class="empty-message"
+                >
 
                     Unable to load history data.
 
-                    <br><br>
+                    <br>
 
                     ${error.message}
 
@@ -376,8 +372,4 @@ async function loadHistory() {
 // INITIAL LOAD
 // =====================================================
 
-if (userId) {
-
-    loadHistory();
-
-}
+loadHistory();
