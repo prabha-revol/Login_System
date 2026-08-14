@@ -10,20 +10,21 @@
 
     <title>IoT Monitoring Dashboard</title>
 
-
     <style>
 
         * {
             box-sizing: border-box;
-        }
-
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
             margin: 0;
             padding: 0;
-            color: #111827;
+        }
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: #f1f5f9;
+
+            color: #1e293b;
         }
 
 
@@ -32,167 +33,221 @@
         ========================= */
 
         .header {
-            background-color: #1e88e5;
+
+            height: 70px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #0369a1
+                );
+
             color: white;
-            padding: 25px;
-            text-align: center;
-            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 35px;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0,0,0,0.15);
         }
 
 
-        .header h1 {
-            margin: 0;
-            font-size: 40px;
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: bold;
         }
 
 
-        /* =========================
-           MAIN CONTAINER
-        ========================= */
+        .user-area {
 
-        .container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 30px auto;
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
         }
 
-
-        /* =========================
-           USER INFO
-        ========================= */
 
         #userInfo {
-            font-size: 28px;
-            font-weight: 500;
-            margin-bottom: 25px;
+
+            font-size: 14px;
         }
 
 
         .user-id {
-            font-size: 18px;
-            color: #666;
-            margin-left: 15px;
-            font-weight: normal;
+
+            margin-left: 12px;
+
+            opacity: 0.8;
+        }
+
+
+        .logout-btn {
+
+            border: none;
+
+            background: #ef4444;
+
+            color: white;
+
+            padding: 9px 15px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .logout-btn:hover {
+
+            background: #dc2626;
         }
 
 
         /* =========================
-           TOP BUTTONS
+           MAIN
         ========================= */
 
-        .top-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .main {
+
+            padding: 30px 35px;
+        }
+
+
+        .page-title {
+
+            font-size: 28px;
+
+            margin-bottom: 7px;
+        }
+
+
+        .page-subtitle {
+
+            color: #64748b;
+
             margin-bottom: 25px;
         }
 
 
-        .left-actions {
+        /* =========================
+           TOP ACTIONS
+        ========================= */
+
+        .actions {
+
             display: flex;
+
             gap: 12px;
+
+            margin-bottom: 25px;
+
+            flex-wrap: wrap;
         }
 
 
-        button {
-            font-family: Arial, sans-serif;
+        .action-btn {
+
+            padding: 11px 18px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            color: white;
+
+            font-weight: bold;
+
             cursor: pointer;
         }
 
 
-        .add-device-btn,
-        .history-button,
-        .refresh-button {
+        .add-btn {
 
-            padding: 13px 22px;
-            border-radius: 7px;
-            font-size: 17px;
-            border: none;
-            transition: 0.2s;
-
+            background: #0284c7;
         }
 
 
-        .add-device-btn {
+        .history-btn {
 
-            background-color: #1e88e5;
-            color: white;
-
+            background: #475569;
         }
 
 
-        .add-device-btn:hover {
+        .refresh-btn {
 
-            background-color: #1565c0;
-
+            background: #16a34a;
         }
 
 
-        .history-button {
+        .action-btn:hover {
 
-            background-color: white;
-            color: #222;
-            border: 1px solid #bfc7d1;
+            opacity: 0.9;
 
-        }
-
-
-        .history-button:hover {
-
-            background-color: #f0f2f5;
-
-        }
-
-
-        .refresh-button {
-
-            background-color: white;
-            color: #222;
-            border: 1px solid #bfc7d1;
-
-        }
-
-
-        .refresh-button:hover {
-
-            background-color: #f0f2f5;
-
+            transform: translateY(-1px);
         }
 
 
         /* =========================
-           SENSOR CARDS
+           SENSOR CONTAINER
         ========================= */
 
-        .sensor-container {
+        #sensorContainer {
 
             display: grid;
 
             grid-template-columns:
-                repeat(auto-fit, minmax(320px, 1fr));
+                repeat(
+                    auto-fit,
+                    minmax(280px, 1fr)
+                );
 
-            gap: 25px;
-
+            gap: 22px;
         }
 
+
+        /* =========================
+           DEVICE CARD
+        ========================= */
 
         .sensor-card {
 
-            background-color: white;
+            background: white;
 
-            padding: 25px;
+            border-radius: 14px;
 
-            border-radius: 12px;
+            padding: 22px;
 
             box-shadow:
-                0 3px 12px rgba(0, 0, 0, 0.12);
+                0 5px 18px
+                rgba(15,23,42,0.08);
 
-            min-height: 300px;
+            border: 1px solid #e2e8f0;
 
+            transition: 0.25s;
         }
 
 
-        /* Device header */
+        .sensor-card:hover {
+
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(15,23,42,0.13);
+        }
+
 
         .device-header {
 
@@ -202,454 +257,221 @@
 
             align-items: center;
 
-            margin-bottom: 20px;
-
+            margin-bottom: 18px;
         }
 
 
         .device-header h2 {
 
-            margin: 0;
+            font-size: 20px;
 
-            font-size: 23px;
+            display: flex;
 
-            color: #111827;
+            align-items: center;
 
+            gap: 8px;
         }
 
 
         .status-dot {
 
-            display: inline-block;
+            width: 10px;
 
-            width: 16px;
+            height: 10px;
 
-            height: 16px;
-
-            background-color: #4caf80;
+            background: #22c55e;
 
             border-radius: 50%;
 
-            margin-right: 8px;
-
+            display: inline-block;
         }
 
 
         .device-menu {
 
-            font-size: 28px;
+            color: #64748b;
 
-            color: #333;
-
-        }
-
-
-        /* =========================
-           SENSOR VALUE
-        ========================= */
-
-        .sensor-value {
-
-            font-size: 40px;
-
-            font-weight: bold;
-
-            color: #1e88e5;
-
-            margin: 22px 0;
-
+            font-size: 22px;
         }
 
 
         .info {
 
-            font-size: 17px;
+            color: #64748b;
 
-            margin: 10px 0;
+            margin-bottom: 10px;
 
+            font-size: 14px;
+        }
+
+
+        .sensor-value {
+
+            font-size: 36px;
+
+            font-weight: bold;
+
+            color: #0284c7;
+
+            margin: 20px 0;
         }
 
 
         .status {
 
-            color: #168534;
+            color: #16a34a;
 
             font-weight: bold;
-
         }
 
-
-        /* =========================
-           VIEW DETAILS
-        ========================= */
 
         .view-details-btn {
 
             width: 100%;
 
-            margin-top: 20px;
+            margin-top: 12px;
 
-            padding: 13px;
+            padding: 11px;
 
             border: none;
 
             border-radius: 7px;
 
-            background-color: #e3f0ff;
+            background: #e0f2fe;
 
-            color: #0969d5;
-
-            font-size: 17px;
+            color: #0369a1;
 
             font-weight: bold;
 
             cursor: pointer;
-
         }
 
 
         .view-details-btn:hover {
 
-            background-color: #d3e7ff;
-
+            background: #bae6fd;
         }
 
 
         /* =========================
-           REFRESH MESSAGE
+           MODAL
         ========================= */
 
-        .refresh {
-
-            margin-top: 35px;
-
-            text-align: center;
-
-            color: #666;
-
-            font-size: 18px;
-
-        }
-
-
-        /* =========================
-           ERROR / NO DATA
-        ========================= */
-
-        .error {
-
-            color: #e91e63;
-
-            text-align: center;
-
-            font-size: 20px;
-
-            padding: 30px;
-
-        }
-
-
-        .no-data {
-
-            grid-column: 1 / -1;
-
-            text-align: center;
-
-            font-size: 20px;
-
-            color: #666;
-
-            padding: 50px;
-
-            background-color: white;
-
-            border-radius: 12px;
-
-        }
-
-
-        /* ==================================================
-           ADD DEVICE MODAL
-        ================================================== */
-
-        .modal {
+        #addDeviceModal {
 
             display: none;
 
             position: fixed;
 
-            z-index: 1000;
+            inset: 0;
 
-            left: 0;
-
-            top: 0;
-
-            width: 100%;
-
-            height: 100%;
-
-            background-color:
-                rgba(0, 0, 0, 0.45);
+            background:
+                rgba(15,23,42,0.55);
 
             justify-content: center;
 
             align-items: center;
 
+            z-index: 1000;
         }
 
 
         .modal-content {
 
-            background-color: white;
+            width: 420px;
 
-            width: 90%;
+            max-width: 90%;
 
-            max-width: 600px;
+            background: white;
 
-            border-radius: 12px;
+            padding: 30px;
+
+            border-radius: 14px;
 
             box-shadow:
-                0 10px 35px rgba(0, 0, 0, 0.25);
-
-            overflow: hidden;
-
+                0 20px 50px
+                rgba(0,0,0,0.25);
         }
 
 
-        /* Modal Header */
+        .modal-content h2 {
 
-        .modal-header {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            padding: 22px 25px;
-
-            border-bottom: 1px solid #e5e7eb;
-
+            margin-bottom: 20px;
         }
 
 
-        .modal-header h2 {
-
-            margin: 0;
-
-            font-size: 27px;
-
-        }
-
-
-        .close-btn {
-
-            background: none;
-
-            border: none;
-
-            font-size: 32px;
-
-            color: #333;
-
-            cursor: pointer;
-
-            line-height: 1;
-
-        }
-
-
-        .close-btn:hover {
-
-            color: #e53935;
-
-        }
-
-
-        /* Modal form */
-
-        .form-group {
-
-            padding: 0 25px;
-
-            margin-top: 20px;
-
-        }
-
-
-        .form-group label {
-
-            display: block;
-
-            font-size: 17px;
-
-            font-weight: bold;
-
-            margin-bottom: 8px;
-
-        }
-
-
-        .form-group input {
+        .modal-content input,
+        .modal-content select {
 
             width: 100%;
 
-            padding: 13px;
+            padding: 12px;
 
-            font-size: 16px;
+            margin-bottom: 14px;
 
             border: 1px solid #cbd5e1;
 
             border-radius: 7px;
-
-            outline: none;
-
         }
 
-
-        .form-group input:focus {
-
-            border-color: #1e88e5;
-
-            box-shadow:
-                0 0 0 2px rgba(30, 136, 229, 0.15);
-
-        }
-
-
-        /* Modal information */
-
-        .modal-info {
-
-            margin: 22px 25px;
-
-            padding: 13px;
-
-            background-color: #e5f2ff;
-
-            color: #0755a5;
-
-            border-radius: 7px;
-
-            font-size: 15px;
-
-        }
-
-
-        /* Success/Error message */
-
-        #addDeviceMessage {
-
-            margin: 0 25px;
-
-            font-size: 15px;
-
-            font-weight: bold;
-
-        }
-
-
-        /* Modal buttons */
 
         .modal-actions {
 
             display: flex;
 
-            justify-content: flex-end;
-
-            gap: 12px;
-
-            padding: 22px 25px;
-
-            border-top: 1px solid #e5e7eb;
-
-            margin-top: 20px;
-
+            gap: 10px;
         }
 
 
-        .cancel-btn {
+        .modal-actions button {
 
-            padding: 12px 22px;
+            flex: 1;
 
-            background-color: white;
-
-            border: 1px solid #bfc7d1;
-
-            border-radius: 7px;
-
-            font-size: 16px;
-
-        }
-
-
-        .cancel-btn:hover {
-
-            background-color: #f3f4f6;
-
-        }
-
-
-        .save-btn {
-
-            padding: 12px 22px;
-
-            background-color: #1e88e5;
-
-            color: white;
+            padding: 11px;
 
             border: none;
 
             border-radius: 7px;
 
-            font-size: 16px;
+            cursor: pointer;
 
+            font-weight: bold;
         }
 
 
-        .save-btn:hover {
+        #closeModal,
+        #cancelDevice {
 
-            background-color: #1565c0;
+            background: #e2e8f0;
 
+            color: #334155;
         }
 
 
         /* =========================
-           MOBILE
+           RESPONSIVE
         ========================= */
 
-        @media (max-width: 700px) {
+        @media (max-width: 600px) {
 
-            .header h1 {
-                font-size: 28px;
+            .header {
+
+                padding: 0 15px;
             }
 
-            .container {
-                width: 94%;
+            .main {
+
+                padding: 20px 15px;
+            }
+
+            .logo {
+
+                font-size: 18px;
             }
 
             #userInfo {
-                font-size: 22px;
-            }
 
-            .user-id {
-                display: block;
-                margin-left: 0;
-                margin-top: 5px;
-            }
-
-            .top-actions {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-
-            .left-actions {
-                flex-direction: column;
-            }
-
-            .refresh-button {
-                width: 100%;
+                display: none;
             }
 
         }
@@ -662,225 +484,171 @@
 <body>
 
 
-    <!-- ==================================================
+    <!-- =========================
          HEADER
-    ================================================== -->
+    ========================= -->
 
-    <div class="header">
+    <header class="header">
 
-        <h1>
-            IoT Monitoring Dashboard
-        </h1>
-
-    </div>
-
-
-    <!-- ==================================================
-         MAIN CONTAINER
-    ================================================== -->
-
-    <div class="container">
-
-
-        <!-- USER INFORMATION -->
-
-        <div id="userInfo">
-
-            Welcome,
-            <span id="username">User</span>
-            👋
-
-            <span class="user-id">
-
-                User ID:
-                <span id="userId"></span>
-
-            </span>
-
+        <div class="logo">
+            📡 IoT Monitoring System
         </div>
 
 
-        <!-- ==================================================
-             TOP ACTION BUTTONS
-        ================================================== -->
+        <div class="user-area">
 
-        <div class="top-actions">
+            <div id="userInfo">
 
+                Welcome,
+                <span id="username">
+                    User
+                </span>
 
-            <!-- LEFT BUTTONS -->
+                👋
 
-            <div class="left-actions">
+                <span class="user-id">
 
+                    User ID:
+                    <span id="userId"></span>
 
-                <!-- ADD DEVICE -->
-
-                <button
-                    id="addDeviceBtn"
-                    class="add-device-btn">
-
-                    ＋ Add Device
-
-                </button>
-
-
-                <!-- HISTORY -->
-
-                <button
-                    class="history-button"
-                    onclick="openHistory()">
-
-                    📊 View Sensor History
-
-                </button>
-
+                </span>
 
             </div>
 
 
-            <!-- REFRESH -->
+            <button
+                class="logout-btn"
+                onclick="logout()"
+            >
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <main class="main">
+
+
+        <h1 class="page-title">
+
+            Dashboard
+
+        </h1>
+
+
+        <p class="page-subtitle">
+
+            Monitor your connected IoT devices and sensor data.
+
+        </p>
+
+
+        <!-- =========================
+             ACTION BUTTONS
+        ========================= -->
+
+        <div class="actions">
 
             <button
-                class="refresh-button"
-                onclick="loadDashboard()">
+                id="addDeviceBtn"
+                class="action-btn add-btn"
+            >
 
-                ⟳ Refresh
+                + Add Device
 
             </button>
 
 
+            <button
+                class="action-btn history-btn"
+                onclick="openHistory()"
+            >
+
+                📊 Sensor History
+
+            </button>
+
+
+            <button
+                class="action-btn refresh-btn"
+                onclick="refreshDashboard()"
+            >
+
+                🔄 Refresh
+
+            </button>
+
         </div>
 
 
-        <!-- ==================================================
+        <!-- =========================
              SENSOR CARDS
-        ================================================== -->
+        ========================= -->
 
-        <div
-            id="sensorContainer"
-            class="sensor-container">
+        <div id="sensorContainer">
 
-        </div>
+            <div class="sensor-card">
 
+                Loading devices...
 
-        <!-- ==================================================
-             REFRESH INFORMATION
-        ================================================== -->
-
-        <div class="refresh">
-
-            Live values refresh automatically every 5 seconds
+            </div>
 
         </div>
 
 
-    </div>
+    </main>
 
 
-    <!-- ==================================================
+    <!-- =========================
          ADD DEVICE MODAL
-    ================================================== -->
+    ========================= -->
 
-    <div
-        id="addDeviceModal"
-        class="modal">
+    <div id="addDeviceModal">
 
 
         <div class="modal-content">
 
 
-            <!-- MODAL HEADER -->
-
-            <div class="modal-header">
-
-                <h2>
-                    Add New Device
-                </h2>
+            <h2>
+                Add IoT Device
+            </h2>
 
 
-                <button
-                    id="closeModal"
-                    class="close-btn">
-
-                    ×
-
-                </button>
-
-            </div>
+            <input
+                type="text"
+                id="deviceName"
+                placeholder="Device Name"
+            >
 
 
-            <!-- DEVICE NAME -->
-
-            <div class="form-group">
-
-                <label>
-                    Device Name *
-                </label>
-
-                <input
-                    type="text"
-                    id="deviceName"
-                    placeholder="Enter device name">
-
-            </div>
+            <input
+                type="text"
+                id="deviceType"
+                placeholder="Device Type"
+            >
 
 
-            <!-- DEVICE TYPE -->
+            <input
+                type="text"
+                id="deviceLocation"
+                placeholder="Location"
+            >
 
-            <div class="form-group">
-
-                <label>
-                    Device Type *
-                </label>
-
-                <input
-                    type="text"
-                    id="deviceType"
-                    placeholder="Example: Temperature">
-
-            </div>
-
-
-            <!-- LOCATION -->
-
-            <div class="form-group">
-
-                <label>
-                    Location
-                </label>
-
-                <input
-                    type="text"
-                    id="deviceLocation"
-                    placeholder="Example: Industry">
-
-            </div>
-
-
-            <!-- MESSAGE -->
-
-            <div
-                id="addDeviceMessage">
-
-            </div>
-
-
-            <!-- INFORMATION -->
-
-            <div class="modal-info">
-
-                ℹ New device will be added to your account.
-
-            </div>
-
-
-            <!-- MODAL BUTTONS -->
 
             <div class="modal-actions">
 
-
                 <button
                     id="cancelDevice"
-                    class="cancel-btn">
+                    type="button"
+                >
 
                     Cancel
 
@@ -888,16 +656,18 @@
 
 
                 <button
-                    id="saveDevice"
-                    class="save-btn"
-                    onclick="addDevice()">
+                    id="closeModal"
+                    type="button"
+                >
 
-                    Add Device
+                    Close
 
                 </button>
 
-
             </div>
+
+
+            <div id="addDeviceMessage"></div>
 
 
         </div>
@@ -905,11 +675,26 @@
     </div>
 
 
-    <!-- ==================================================
+    <!-- =========================
          JAVASCRIPT
-    ================================================== -->
+    ========================= -->
 
     <script src="/static/dashboard.js"></script>
+
+
+    <script>
+
+        function logout() {
+
+            localStorage.removeItem("user_id");
+
+            localStorage.removeItem("username");
+
+            window.location.href = "/Login";
+
+        }
+
+    </script>
 
 
 </body>
