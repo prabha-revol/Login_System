@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Sensor Graph - IoT Monitoring System</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+            min-height: 70px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0f172a,
+                    #0369a1
+                );
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 15px 35px;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            border: none;
+            background: #475569;
+            color: white;
+
+            padding: 10px 17px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            background: #334155;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            padding: 30px 35px;
+        }
+
+        .title-section {
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 7px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* =========================
+           GRAPH CARD
+        ========================= */
+
+        .graph-card {
+
+            background: white;
+
+            border-radius: 14px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 5px 18px
+                rgba(15, 23, 42, 0.08);
+
+            border: 1px solid #e2e8f0;
+        }
+
+        .graph-title {
+
+            font-size: 20px;
+
+            margin-bottom: 20px;
+
+            color: #0f172a;
+        }
+
+        .chart-container {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 450px;
+        }
+
+        /* =========================
+           DEVICE INFO
+        ========================= */
+
+        .device-info {
+
+            margin-bottom: 20px;
+
+            padding: 15px;
+
+            background: #f0f9ff;
+
+            border-left: 4px solid #0284c7;
+
+            border-radius: 7px;
+        }
+
+        .device-info strong {
+            color: #0369a1;
+        }
+
+        /* =========================
+           ERROR
+        ========================= */
+
+        .error {
+
+            text-align: center;
+
+            padding: 40px;
+
+            color: #dc2626;
+
+            font-weight: bold;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .header {
+                padding: 15px;
+            }
+
+            .main {
+                padding: 20px 15px;
+            }
+
+            .logo {
+                font-size: 17px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEADER
+    ========================= -->
+
+    <header class="header">
+
+        <div class="logo">
+            📡 IoT Monitoring System
+        </div>
+
+        <button
+    type="button"
+    id="backHistory"
+    class="back-btn"
+>
+    ← Back to Sensor History
+</button>
+
+    </header>
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <main class="main">
+
+
+        <div class="title-section">
+
+            <h1>
+                📈 Sensor Graph
+            </h1>
+
+            <p class="subtitle">
+
+                Visual representation of historical
+                sensor readings.
+
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             GRAPH CARD
+        ========================= -->
+
+        <div class="graph-card">
+
+
+            <div
+                id="deviceInfo"
+                class="device-info"
+            >
+                Loading sensor information...
+            </div>
+
+
+            <h2 class="graph-title">
+
+                Sensor Values Over Time
+
+            </h2>
+
+
+            <div class="chart-container">
+
+                <canvas
+                    id="sensorChart"
+                ></canvas>
+
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =========================
+         CHART.JS
+    ========================= -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/chart.js">
+    </script>
+
+
+    <!-- =========================
+         GRAPH JAVASCRIPT
+    ========================= -->
+
+    <script
+        src="/static/graph.js">
+    </script>
+
+
+</body>
+
+</html>
