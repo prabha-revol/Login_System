@@ -123,3 +123,15 @@ def history_page(request: Request):
         name="history.html",
         context={}
     )
+# -------------------------
+# GRAPH PAGE
+# -------------------------
+
+@app.get("/graph")
+def graph_page(request: Request):
+
+    return templates.TemplateResponse(
+        request=request,
+        name="graph.html",
+        context={}
+    )
